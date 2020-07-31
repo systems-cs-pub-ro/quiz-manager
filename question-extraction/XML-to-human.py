@@ -9,11 +9,11 @@ def main(argv):
     try:
         opts, _ = getopt.getopt(argv,"hi:o:",["ifile=","ofile="])
     except getopt.GetoptError:
-        print('test.py -i <inputfile> -o <outputfile>')
+        print('XML-to-human.py -i <inputfile> -o <outputfile>')
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print('test.py -i <inputfile> -o <outputfile>')
+            print('XML-to-human.py -i <inputfile> -o <outputfile>')
             sys.exit()
         elif opt in ("-i", "--ifile"):
             infile_name = arg
