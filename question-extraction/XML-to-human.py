@@ -5,6 +5,7 @@ def main(argv):
     infile_name = ''
     outfile_name = ''
 
+# Parse the arguments given to the script
     try:
         opts, _ = getopt.getopt(argv,"hi:o:",["ifile=","ofile="])
     except getopt.GetoptError:
@@ -21,8 +22,13 @@ def main(argv):
 
     outfile = open(outfile_name, "w")
 
+# Parse the XML file
     tree = ET.parse(infile_name)
     root = tree.getroot()
+
+# Extract the question name and answers and add them to the file
+# The answers which have a positive fraction will have '+' in front of them,
+# to mark them as correct. Otherwise, a '-' will be placed.
 
     for element in root.iter('question'):
         if element.attrib['type'] == 'multichoice':
