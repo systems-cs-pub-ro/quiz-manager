@@ -1,0 +1,13 @@
+{
+    "quiz-settings": {
+        "questions": 5,
+        "easy": 2,
+        "medium": 2,
+        "hard": 1,
+        "chapters": ["Introduction", "Users", "Shell Scripting", "Networking"]
+    },
+
+    "database-settings": {
+        "database-ip": "localhost"
+    }
+}
