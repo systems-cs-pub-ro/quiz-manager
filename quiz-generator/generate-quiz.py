@@ -1,10 +1,16 @@
 import json
 import pymongo
+import sys
 
 
 def openJsonConfig():
-    with open('config.json') as json_file:
-        conf = json.load(json_file)
+    try:
+        with open('config.json') as json_file:
+            conf = json.load(json_file)
+    except:
+        print('\033[0;31m' + 'error: ' + '\033[0m' + 'config.json file can\'t be opened')
+        sys.exit(2)
+
     return conf
 
 
