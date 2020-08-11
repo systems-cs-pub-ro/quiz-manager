@@ -8,6 +8,9 @@
     },
 
     "database-settings": {
-        "database-ip": "localhost"
+        "database-ip": "",
+        "database-name": "quiz-database",
+        "question-collection": "questions",
+        "test-collection": "tests"
     }
 }
