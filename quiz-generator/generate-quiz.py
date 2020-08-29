@@ -66,6 +66,24 @@ def submitQuery(collection, query):
         response.append(document)
     return response
 
+def selectTags(questions, tags):
+	"""
+	Iterates trough an array of questions and returns only those that
+	match at least on required tag.
+
+	:param questions: array of questions stored in json
+	:param tags: list of required tags for the selected questions
+	:return: array of questions filtered on required tags
+	"""
+
+	response = []
+	for itr in questions:
+		if any(item in itr["tags"] for item in tags):
+			response.append(itr)
+	return response
+
+
+
 
 if __name__ == '__main__':
     config = openJsonConfig()
@@ -82,3 +100,6 @@ if __name__ == '__main__':
             getCollection(db_settings['database-ip'], db_settings['database-name'], db_settings['test-collection'])
     except:
         print('\033[0;31m' + 'error: ' + '\033[0m' + 'Connection to test-collection failed. Check database settings.')
+
+
+    
