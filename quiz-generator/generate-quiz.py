@@ -4,6 +4,11 @@ import sys
 
 
 def openJsonConfig():
+    """
+    Opens the 'config.json' file and loads it into memory
+
+    :return: JSON config file
+    """
     try:
         with open('config.json') as json_file:
             conf = json.load(json_file)
@@ -15,6 +20,16 @@ def openJsonConfig():
 
 
 def getCollection(db_ip, db_name, db_collection):
+    """
+    Connects to the specified MongoDB database collection and provides
+    a MongoDB collection object which can be used to fetch data from
+    the database.
+
+    :param db_ip: Database IP
+    :param db_name: Database name
+    :param db_collection: Database collection
+    :return: MongoDB collection object
+    """
     client = pymongo.MongoClient(db_ip)
     col = client[db_name][db_collection]
     return col
@@ -37,6 +52,14 @@ def selectDifficulty(questions, difficulty):
 
 
 def submitQuery(collection, query):
+    """
+    Sends a query to the MongoDB database collection and gets
+    the matching elements out of it.
+
+    :param collection: MongoDB collection object
+    :param query: MongoDB find query
+    :return: Array of elements which satisfy the given query
+    """
     response = []
     cursor = collection.find(query)
     for document in cursor:
