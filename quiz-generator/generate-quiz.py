@@ -68,12 +68,12 @@ def submitQuery(collection, query):
 
 def selectTags(questions, tags):
 	"""
-	Iterates trough an array of questions and returns only those that
-	match at least on required tag.
+	Iterates through an array of questions and returns only those that
+	match at least one required tag.
 
-	:param questions: array of questions stored in json
-	:param tags: list of required tags for the selected questions
-	:return: array of questions filtered on required tags
+	:param questions: Array of questions stored in json
+	:param tags: List of required tags for the selected questions
+	:return: Array of questions filtered on required tags
 	"""
 
 	response = []
