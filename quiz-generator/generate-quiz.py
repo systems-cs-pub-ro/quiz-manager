@@ -20,6 +20,22 @@ def getCollection(db_ip, db_name, db_collection):
     return col
 
 
+def selectDifficulty(questions, difficulty):
+    """
+    Iterates through an array of questions and keeps only the ones
+    that are matching the specified difficulty.
+
+    :param questions: array of questions stored in JSON
+    :param difficulty: a number from 1 to 3
+    :return: filtered array of questions stored in JSON
+    """
+    response = []
+    for itr in questions:
+        if itr["difficulty"] == difficulty:
+            response.append(itr)
+    return response
+
+
 def submitQuery(collection, query):
     response = []
     cursor = collection.find(query)
