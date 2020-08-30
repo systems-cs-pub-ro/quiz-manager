@@ -85,6 +85,7 @@ def selectTags(questions, tags):
 	return response
 
 
+<<<<<<< HEAD
 def selectQuestions(questions, size, maxSize):
     """
     Takes an array of questions, sorts them according to the creation
@@ -108,6 +109,23 @@ def selectQuestions(questions, size, maxSize):
     pool = sorted(questions, key = lambda question: question["createdOn"], reverse = True)
     response = random.sample(pool[0:maxSize], size)
 
+    return response
+
+=======
+def selectYear(questions, year):
+    """
+    Iterates through an array of questions and returns a list of
+    questions that have been last used in the specified year.
+
+    :param questions: Array of questions stored in JSON
+    :param year: A number that indicates the year to be filtered
+    :return: Filtered array of questions stored in JSON
+    """
+    response = []
+    for itr in questions:
+        if itr["lastUsed"].year == year:
+            response.append(itr)
+>>>>>>> 3020f3d... quiz-generator: add year filter
     return response
 
 
