@@ -106,12 +106,6 @@ if __name__ == '__main__':
     except:
         print('\033[0;31m' + 'error: ' + '\033[0m' + 'Connection to test-collection failed. Check database settings.')
     
-    questions = question_collection.find({})
-    response = selectYear(questions, 1970)
-    vec = selectQuestions(response, 3, 4)
-    for itr in vec:
-    	print(itr)
-    	print('\n')
 
 
     
