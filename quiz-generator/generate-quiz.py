@@ -1,6 +1,7 @@
 import json
 import pymongo
 import sys
+import random
 
 
 def openJsonConfig():
@@ -66,6 +67,7 @@ def submitQuery(collection, query):
         response.append(document)
     return response
 
+
 def selectTags(questions, tags):
 	"""
 	Iterates through an array of questions and returns only those that
@@ -83,6 +85,30 @@ def selectTags(questions, tags):
 	return response
 
 
+def selectQuestions(questions, size, maxSize):
+    """
+    Takes an array of questions, sorts them according to the creation
+    date and returns a random selection of 'size' questions from a
+    pool created with the first 'maxSize' sorted questions.
+    :param questions: Array of questions stored in JSON
+    :param size: Number of returned questions
+    :param maxSize: Size of the random-selection pool
+    :return: Filtered array of questions stored in JSON
+    """
+    pool = []
+    response = []
+
+    """
+    If the required number of returned questions is greater than the
+    total number of questions, we simply return the whole array.
+    """
+    if size >= len(questions):
+        return questions
+
+    pool = sorted(questions, key = lambda question: question["createdOn"], reverse = True)
+    response = random.sample(pool[0:maxSize], size)
+
+    return response
 
 
 if __name__ == '__main__':
