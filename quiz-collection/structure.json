@@ -1,0 +1,17 @@
+{
+    "creation_date":0,
+    "last_used":0,
+    "difficulty":0, 
+    
+    "statement":"",
+    "tags" : [
+    ],
+    "answers": [{
+        "statement":"", 
+        "correct":false, 
+        "grade":0.0 
+    }],
+    "correctAnswersNo":0
+}
+
+
