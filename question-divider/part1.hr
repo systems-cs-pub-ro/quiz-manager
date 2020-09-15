@@ -1,0 +1,621 @@
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Când rulăm comanda make și există un fișier Makefile în directorul curent, care țintă (target) din fișierul Makefile se execută?
++ primul target întâlnit
+- targetul all
+- targetul build
+- targetul clean
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele acțiuni sunt privilegiate pe un sistem Linux (adică este nevoie de privilegii / drepturi de root pentru a putea fi rulate cu succes)? (alegeți 3 variante)
++ vizualizarea fișierului /etc/shadow
++ instalarea unui pachet
++ adăugarea unui utilizator
+- vizualizarea proceselor sistemului
+- vizualizarea interfețelor de rețea
+- crearea unui fișier în directorul /tmp/
+- schimbarea valorii umask pentru shell-ul curent
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele asocieri Linux-Windows NU este corectă?
++ apt și Windows Defender
+- Bash și PowerShell
+- / și \
+- /etc/ și Windows Registry
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele comenzi (rulate ca atare) necesită input de la intrarea standard? (alegeți 2 variante)
++ passwd
++ cat
+- ip
+- ls
+- uptime
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele comenzi afișează un singur caracter ghilimele? În paranteză sunt precizate caracterele de după comanda echo, pentru claritate. (alegeți 2 variante)
++ echo \" (backslash ghilimele)
++ echo '"' (apostrof ghilimele apostrof)
+- echo """ (ghilimele ghilimele ghilimele)
+- echo $" (dolar ghilimele)
+- echo "'" (ghilimele apostrof ghilimele)
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele comenzi este folosită pentru partiționarea unui disc în Linux?
++ fdisk
+- fsck
+- mkfs
+- mount
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele comenzi sunt filtre de text? Adică primesc text la intrarea standard, îl prelucrează într-un anumit fel și apoi îl afișează la ieșirea standard? (alegeți 3 variante)
++ tr
++ grep
++ sort
+- ps
+- netstat
+- strace
+- chmod
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele este o adresă de interfață de loopback?
++ 127.0.0.1
+- 192.168.56.20
+- 10.6.7.12
+- 172.16.12.19
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele este o soluție de versionare a codului?
++ Git
+- Emacs
+- Eclipse
+- GCC
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele informații nu este furnizată prin DHCP?
++ adresa MAC
+- adresa IP
+- adresa gateway-lui
+- adresa serverului DNS
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele perechi NU corespunde? E vorba de comenzi legate de fișiere, respectiv procese.
+- ls și ps
+- rm și kill
+- tree și pstree
++ wc și chown
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele se referă la scheme de partiționare ale unui disc? (alegeți 2 variante)
++ GPT
++ MBR
+- SSD
+- PCI
+- SATA
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele șiruri fac match pe expresia regulată a?b*ac+? (alegeți 3 variante)
++ ac
++ acccc
++ aac
+- abbaca
+- bbcac
+- aabbaac
+- ababbac
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele sunt avantaje ale folosirii unui interpretor față de un compilator? (alegeți 2 variante)
++ interpretoarele permit dezvoltare și depanare mai rapidă
++ programele interpretate sunt portabile
+- interpretoarele fac aplicațiile mai performante
+- interpretoarele sunt mai sigure
+- interpretoarele nu au nevoie de sistem de operare pentru a rula
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele sunt folosite pentru a gestiona servicii în Linux (pornire, oprire, repornire)? (alegeți 2 variante)
++ systemd
++ supervisor
+- dpkg
+- wget
+- strace
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele sunt legate de criptare? (alegeți 2 variante)
++ RSA
++ openssl
+- procfs
+- TCP
+- chown
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele sunt sisteme încorporate (embedded devices)? (alegeți 2 variante)
++ Raspberry Pi
++ Arduino
+- server în data center
+- sistem PC (Personal Computer)
+- laptop
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele utilitare precizează că un fișier este un fișier binar executabil ELF (Executable and Linking Format)?
++ file
+- find
+- whatis
+- which
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele variante NU corespunde tripletului (automatizare, securitate, utilizatori)?
+- (scripting, permisiuni, UID)
+- (expect, firewall, grup)
+- (cron, GPG, sudo)
++ (one liner, umask, df)
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele variante reprezintă o adresă IP validă care poate fi asociată unei stații?
+- 0.1.2.3/16
++ 1.2.3.4/8
+- 1.2.3.255/24
+- 255.255.255.0/24
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele variante sunt metadate ale unui fișier? (alegeți 3 variante)
++ group ID
++ dimensiune
++ timpi de acces
+- adresă IP
+- versiune de sisteme de operare
+- versiune de desktop environment
+- viteză de transfer
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele variate NU corespunde tripletului (rețelistică, procese, booting)?
+- (IP, top, MBR)
+- (DHCP, init, BIOS)
+- (loopback, PID, GRUB)
++ (host, ps, #!)
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următorele acronime se referă la interfața grafică (GUI)?
++ WIMP
+- AES
+- HTTP
+- LVM
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care este fișierul de configurare pentru utilitarul sudo?
++ /etc/sudoers
+- /etc/sudo.conf
+- /etc/passwd
+- /etc/shadow
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care este forma în octal a permisiunilor rw- r-- -w-?
++ 642
+- 571
+- 435
+- 234
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care este UID-ul utilizatorului root în Linux?
++ 0
+- 1
+- 1000
+- 101
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Câți biți are o adresă de rețea IPv4?
++ 32
+- 4
+- 8
+- 16
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Ce asociază / mapează serviciul DNS?
++ adrese IP și nume de domenii
+- adrese MAC și nume de domenii
+- adrese IP și adrese MAC
+- adrese IP și măști de rețea
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Ce comandă / interacțiune duce un proces deja pornit din foreground în background?
+- folosirea operatorului & la sfârșitul comenzii
++ combinația de taste Ctrl+z
+- comanda fg
+- comanda bg
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Ce expresie Bash reține numărul de argumente ale unui script?
++ $#
+- $?
+- $@
+- $_
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Ce fișier din Linux face asocierea (maparea) între numele de utilizator (username) și identificatorul de utilizator (user id)?
++ /etc/passwd
+- /etc/group
+- /etc/users.map
+- /etc/users.conf
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Ce înseamnă când prompt-ul shell-ului are # (diez) ca ultim caracter?
++ utilizatorul curent este root
+- ne aflăm în directorul rădăcină din sistemul de fișiere
+- suntem în modul de configurare a sistemului
+- shell-ul are ca proces părinte procesul init
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Ce serviciu are în fișierul de configurare linii de forma de mai jos?
+<p>
+<pre>
+*/30 * * * * /home/student/run-service
+</pre>
+</p>
++ cron
+- supervisor
+- dhclient
+- ssh
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Ce urmează după #! (shebang) la începutul unui fișier de tip script?
++ calea către un fișier executabil
+- numele unui proces
+- o adresă IP
+- o expresie regulată
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Ce variabilă de mediu are în general forma de mai jos?
+<p>
+<pre>
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+</pre>
+</p>
++ PATH
+- PWD
+- USER
+- TERM
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre comenzile de mai jos creează un fișier cu numele primit ca argument? Adică o comandă de forma "touch a*" să creeze fișierul cu numele "a*". (alegeți 3 variante)
++ touch a%
++ touch a=
++ touch a:
+- touch $a
+- touch a>
+- touch a|
+- touch a;
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Cu ce tip de serviciu/protocol de rețea asociem fișiere de tipul id_rsa.pub?
++ SSH
+- HTTP / web
+- e-mail
+- DNS
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Cum se numește în Linux prioritatea unui proces?
++ nice
+- blame
+- corpus
+- energy
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Fie comanda de mai jos:
+<p>
+<pre>
+student@uso:~$ cat /etc/files.conf
+cat: /etc/files.conf: No such file or directory
+</pre>
+</p>
+Ce comandă trebuie să rulăm astfel încât comanda de mai sus, rulată a două oară, să nu mai afișeze mesajul de eroare?
++ touch /etc/files.conf
+- sudo su
+- chown student:student /etc/files.conf
+- sudo apt remove files
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+În ierarhia de memorii care dintre următoarele au cea mai mare viteză de acces?
++ registrele procesorului
+- memoria cache
+- memoria RAM
+- discul
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Multe dintre componentele sistemelor IoT (Internet of Things) folosesc procesoare slabe (microcontrollere). Care este avantajul folosirii unor astfel de procesoare? (alegeți 2 variante)
++ sunt mai ieftine
++ au consum mai mic de putere
+- rulează pe orice tip de placă de bază
+- pot rula Linux, Windows și macOS
+- au registre mari, de 64 de biți
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+systemd este o implementare de ...
++ proces init
+- stivă de rețea
+- algoritm de criptare
+- generator de numere aleatoare
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Un driver de dispozitiv (device driver) este cel mai adesea ...
++ un modul de kernel
+- un fișier executabil
+- un fișier de configurare
+- o arhivă tar
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Unde găsim informații despre procese în Linux?
++ /proc
+- /dev
+- /usr
+- /etc
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele acțiuni sunt privilegiate pe un sistem Linux (adică este nevoie de privilegii / drepturi de root pentru a putea fi rulate cu succes)? (alegeți 3 variante)
++ aducerea la zi a unui pachet<br>
++ setarea adresei de retea<br>
++ setarea directorului de home al unui utilizator
+- vizualizarea fișierului /etc/passwd
+- vizualizarea interfețelor de rețea
+- crearea unui fișier în directorul /tmp/
+- schimbarea valorii umask pentru shell-ul curent
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele asocieri Linux-Windows NU este corectă?
++ ls și Windows Store<br>
+- Bash și PowerShell
+- / și \
+- /home/ și Users<br>
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele comenzi (rulate ca atare) necesită input de la intrarea standard? (alegeți 2 variante)
++ ssh-keygen<br>
++ tr<br>
+- apt
+- tree<br>
+- wget
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele comenzi afișează un singur caracter apostrof? În paranteză sunt precizate caracterele de după comanda echo, pentru claritate. (alegeți 2 variante)
++ echo \' (backslash apostrof)
++ echo "'" (ghilimele apostrof ghilimele)
+- echo '\'' (apostrof backslash apostrof apostrof)
+- echo $' (dolar apostrof)
+- echo '"' (apostrof ghilimele apostrof)
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele comenzi crează un fișier cu numele a*? (alegeți 3 variante)<br>
++ touch 'a*'
++ <p>echo &gt; 'a*'</p>
++ touch "a*"
+- echo &gt; a\*<br>
+- touch a$*
+- echo &gt; a*
+- touch a**
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele comenzi este folosită pentru partiționarea unui disc în Linux?
++ parted
+- fsck
+- mkfs
+- mount
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele comenzi sunt filtre de text? Adică primesc text la intrarea standard, îl prelucrează într-un anumit fel și apoi îl afișează la ieșirea standard? (alegeți 3 variante)
++ tr<br>
++ grep
++ head<br>
+- ps
+- ip<br>
+- strace
+- chmod
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele este o adresă de interfață de rețea care poate fi folosită pentru a transmite date către alt calculator?
++ 192.168.56.20
+- 192.257.56.20<br>
+- 10.6.7.259
+- 127.0.0.1
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele este o soluție de versionare a codului?
++ Git
+- busybox<br>
+- Eclipse
+- gcc
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele folosesc System-on-a-Chip? (alegeți 2 variante)
++ Raspberry Pi
++ Beaglebone Black<br>
+- server în data center
+- Arduino UNO<br>
+- laptop
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele informații NU este stocata în blocul de informații al unui fișier?
++ numele
+- dimensiunea
+- timpi de acces
+- drepturile de access<br>
+- id-ul<br>
+- id-ul utilizatorului căruia îi aparține<br>
+- lista de blocuri cu datele<br>
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele informații sunt furnizate prin DHCP? (alegeți 3 variante)
++ adresa serverului de DNS
++ adresa IP
++ adresa gateway-lui
+- adresa IP a ISP-ului
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele perechi (fisiere si procese) NU corespunde?
+- ls și ps
+- mkdir și kill
+- tree și pstree
++ tr și passwd
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele se referă la scheme de partiționare ale unui disc? (alegeți 2 variante)
++ GPT
++ MBR
+- HDD
+- PCIe
+- SSD<br>
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele șiruri fac match pe expresia regulată a+b*a?c? ? (alegeți 3 variante)
++ ac
+- acccc
++ aac
++ abbbac
+- bbcac
+- aabbaac
+- ababbac
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele sunt avantaje ale folosirii unui limbaj interpretat față de un limbaj compilat? (alegeți 2 variante)
++ limbajele interpretate permit dezvoltare și depanare mai rapidă
++ programele interpretate sunt portabile
+- limbajele interpretate fac aplicațiile mai performante
+- limbajele interpretate sunt mai sigure
+- limbajele interpretate nu au nevoie de sistem de operare pentru a rula
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele sunt folosite pentru a gestiona servicii în Linux (pornire, oprire, repornire)? (alegeți 2 variante)
++ systemd
++ supervisor
+- dpkg
+- ps
+- sysfs<br>
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele sunt legate de criptare? (alegeți 2 variante)
++ RSA
++ ssh
+- telnet
+- base64<br>
+- ls<br>
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele variante NU corespunde tripletului (script, securitate, utilizatori)?
+- (for, permisiuni, UID)
+- (expect, firewall, grup)
+- (systemctl, ssh, sudo)
++ (ps, parted, df)
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele variante reprezintă o setare validă care poate fi asociată unei stații pentru a putea trimite și primi date din rețeaua locală?
+- 0.1.2.3/32
++ 255.253.255.5/24
+- 1.2.3.255/24
+- 255.255.255.0/24
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următoarele variate NU corespunde tripletului (rețelistică, procese, booting)?
+- (IP, top, MBR)
+- (DHCP, init, BIOS)
+- (loopback, PID, uboot)
++ (host, ps, ls)
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care dintre următorele acronime se referă la interfața grafică?
++ GUI
+- CLI
+- HTTP
+- LVM
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care este forma în octal a permisiunilor rw- -w- r--?
++ 624
+- 571
+- 435
+- 234
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care este PID-ul procesului init?
++ 1
+- 0
+- -1<br>
+- 1024<br>
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Care este UID-ul utilizatorului root în Linux?
++ 0
+- 1
+- 1000
+- 101
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Câți biți are o adresă de rețea IPv6?
+- 32
++ 128<br>
+- 8
+- 16
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Ce comandă in shell duce procesul din foreground în background?
+- folosirea operatorului & la sfârșitul comenzii
++ combinația de taste Ctrl+z
+- comanda fg
+- comanda bg
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Ce expresie Bash reține șirul de argumente ale unui script?
+- $#
+- $?
++ $@
+- $_
+- Nu știu / Nu răspund
+
+creation_date:0;last_used:0;difficulty:0;topics: ;
+Ce fișier din Linux face asocierea (maparea) între numele de utilizator (username) și parola sa?
++ /etc/shadow
+- /etc/passwd
+- /etc/users.map
+- /etc/users.conf
+- Nu știu / Nu răspund
+
