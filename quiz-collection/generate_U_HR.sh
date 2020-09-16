@@ -32,6 +32,7 @@ fi
 
 # RUNNING SCRIPT
 # Manual usage: python3 msml-hr.py -i <input file> -o <output file> -e <tag1,tag2,...>
+
 python3 $SCRIPT -i $XML -o $HR --etags=$EXTRA_TAGS
 
 
