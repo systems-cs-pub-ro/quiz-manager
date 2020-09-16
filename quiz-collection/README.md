@@ -2,9 +2,6 @@
     
 ## TODO
     - Pass creation date as argument when generating HR file
-    - Check if additional comments are needed
-    - Write extensive README.md file
-    - Clean command to delete output files
     - Annotation program
 
 ## Usage
