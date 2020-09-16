@@ -111,6 +111,23 @@ def selectQuestions(questions, size, maxSize):
     return response
 
 
+def selectYear(questions, year):
+    """
+    Iterates through an array of questions and returns a list of
+    questions that have been last used in the specified year.
+
+    :param questions: Array of questions stored in JSON
+    :param year: A number that indicates the year to be filtered
+    :return: Filtered array of questions stored in JSON
+    """
+    response = []
+    for itr in questions:
+        if itr["lastUsed"].year == year:
+            response.append(itr)
+
+    return response
+
+
 if __name__ == '__main__':
     config = openJsonConfig()
     quiz_settings = config['quiz-settings']
