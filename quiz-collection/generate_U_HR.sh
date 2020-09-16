@@ -1,6 +1,8 @@
 #!/bin/bash
 EXTRA_TAGS=$1
 
+# USAGE ./generate_U_HR.sh <extraTag1,extraTag2,...>
+
 #MERGING ALL INPUT FILES INTO A SINGLE XML FILE TO BE FED TO "mxml-hr.py" SCRIPT
 #PY SCRIPT GENERATES UNANNOTATED HUMAN READABLE QUIZ FILE
 INPUT_FOLDER=./inputs/*.xml
@@ -30,6 +32,6 @@ fi
 
 # RUNNING SCRIPT
 # Manual usage: python3 msml-hr.py -i <input file> -o <output file> -e <tag1,tag2,...>
-python3 $SCRIPT -i $XML -o $HR -e $EXTRA_TAGS
+python3 $SCRIPT -i $XML -o $HR --etags=$EXTRA_TAGS
 
 

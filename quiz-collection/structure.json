@@ -1,7 +1,7 @@
 {
     "creation_date":0,
-    "last_used":0,
-    "difficulty":0, 
+    "used_on":0,
+    "difficulty":0,
     
     "statement":"",
     "tags" : [

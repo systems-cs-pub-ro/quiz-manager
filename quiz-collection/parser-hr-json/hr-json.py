@@ -128,10 +128,18 @@ def main(argv):
 
         # ADD ALL TAGS TO QUESTION
         tagAssign(newQuestion,tags)
-
-        # READING QUESTION STATEMENT
-        newQuestion["statement"] = iFileHandle.readline().rstrip()
         
+        # READING QUESTION STATEMENT UNTIL + or - IS FOUND
+        line = iFileHandle.readline()
+        while(1):
+            pos = iFileHandle.tell()
+            newQuestion["statement"] += line
+            line = iFileHandle.readline()
+            if(line[0] == "+" or line[0] == "-"):
+                #REVERT FILE POINTER SO FIRST ANSWER IS NOT LOST
+                iFileHandle.seek(pos)
+                break
+
         # READING ANSWERS 
         getAnswers(iFileHandle, newQuestion)
         quiz.append(newQuestion)
