@@ -99,15 +99,15 @@ def selectQuestions(questions, size, maxSize):
     pool = []
     response = []
 
-    """
-    If the required number of returned questions is greater than the
-    total number of questions, we simply return the whole array.
-    """
-    if size >= len(questions):
-        return questions
-
     pool = sorted(questions, key = lambda question: question["createdOn"], reverse = True)
-    response = random.sample(pool[0:maxSize], size)
+
+    if maxSize < len(pool):
+        response = random.sample(pool[0:maxSize], size)
+    else: 
+        if size < len(pool):
+            response = random.sample(pool, size)
+        else :
+            response = pool
 
     return response
 
@@ -129,6 +129,42 @@ def selectYear(questions, year):
     return response
 
 
+def generateQuiz(questions, quiz_settings):
+    """
+    Using the quiz settings from the configuration file, selects
+    the questions according to difficulty and topics, trying to
+    use questions that were never used, or that were used a long time
+    ago.
+
+    :param questions: Array of questions stored in JSON
+    :param quiz_settings: Dictionary that describes the quiz
+    :return: Array of questions stored in JSON, representing the generated quiz
+    """
+    quiz = []
+    difficulties = ['easy', 'medium', 'hard']
+
+    for difficulty in difficulties:
+        difficulty_pool = selectDifficulty(questions, difficulties.index(difficulty) + 1) 
+        required_questions = quiz_settings[difficulty]
+
+        for year in range(1970, 2020):
+            year_pool = selectYear(difficulty_pool, year)
+            tags_pool = selectTags(year_pool, quiz_settings['chapters'])
+            selection = selectQuestions(tags_pool, required_questions, quiz_settings['questions'])
+            
+            required_questions = required_questions - len(selection)
+            quiz = quiz + selection
+            """
+                When we reach the required number of questions with a certain difficulty,
+                we move on to the next level of difficulty.
+            """
+            if required_questions == 0:
+                break
+
+
+    return quiz
+
+
 if __name__ == '__main__':
     config = openJsonConfig()
     quiz_settings = config['quiz-settings']
@@ -145,5 +181,11 @@ if __name__ == '__main__':
     except:
         print('\033[0;31m' + 'error: ' + '\033[0m' + 'Connection to test-collection failed. Check database settings.')
 
+    questions = submitQuery(question_collection, {})
 
-    
+    quiz = generateQuiz(questions, quiz_settings)
+
+    for question in quiz:
+         print(question)
+
+        
