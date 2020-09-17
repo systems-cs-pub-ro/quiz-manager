@@ -2,7 +2,7 @@ import json
 import pymongo
 import sys
 import random
-
+import datetime
 
 def openJsonConfig():
     """
@@ -84,8 +84,6 @@ def selectTags(questions, tags):
 			response.append(itr)
 	return response
 
-
-<<<<<<< HEAD
 def selectQuestions(questions, size, maxSize):
     """
     Takes an array of questions, sorts them according to the creation
@@ -111,7 +109,6 @@ def selectQuestions(questions, size, maxSize):
 
     return response
 
-=======
 def selectYear(questions, year):
     """
     Iterates through an array of questions and returns a list of
@@ -125,7 +122,7 @@ def selectYear(questions, year):
     for itr in questions:
         if itr["lastUsed"].year == year:
             response.append(itr)
->>>>>>> 3020f3d... quiz-generator: add year filter
+
     return response
 
 
@@ -142,12 +139,15 @@ def generateQuiz(questions, quiz_settings):
     """
     quiz = []
     difficulties = ['easy', 'medium', 'hard']
+    now = datetime.datetime.now()
+    current_year = now.year
 
     for difficulty in difficulties:
         difficulty_pool = selectDifficulty(questions, difficulties.index(difficulty) + 1) 
         required_questions = quiz_settings[difficulty]
 
-        for year in range(1970, 2020):
+        for year in range(1970, current_year + 1):
+            # the range should include the current year, that's why I added 1
             year_pool = selectYear(difficulty_pool, year)
             tags_pool = selectTags(year_pool, quiz_settings['chapters'])
             selection = selectQuestions(tags_pool, required_questions, quiz_settings['questions'])
