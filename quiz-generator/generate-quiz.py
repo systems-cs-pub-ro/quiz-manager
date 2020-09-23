@@ -1,8 +1,9 @@
-import json
-import pymongo
 import sys
 import random
 import datetime
+import json
+import pymongo
+
 
 def openJsonConfig():
     """
@@ -33,6 +34,7 @@ def getCollection(db_ip, db_name, db_collection):
     """
     client = pymongo.MongoClient(db_ip)
     col = client[db_name][db_collection]
+
     return col
 
 
@@ -49,6 +51,7 @@ def selectDifficulty(questions, difficulty):
     for itr in questions:
         if itr["difficulty"] == difficulty:
             response.append(itr)
+
     return response
 
 
@@ -65,49 +68,53 @@ def submitQuery(collection, query):
     cursor = collection.find(query)
     for document in cursor:
         response.append(document)
+
     return response
 
 
 def selectTags(questions, tags):
-	"""
-	Iterates through an array of questions and returns only those that
-	match at least one required tag.
+    """
+    Iterates through an array of questions and returns only those that
+    match at least one required tag.
 
-	:param questions: Array of questions stored in json
-	:param tags: List of required tags for the selected questions
-	:return: Array of questions filtered on required tags
-	"""
+    :param questions: Array of questions stored in json
+    :param tags: List of required tags for the selected questions
+    :return: Array of questions filtered on required tags
+    """
+    response = []
+    for itr in questions:
+        if any(item in itr["tags"] for item in tags):
+            response.append(itr)
 
-	response = []
-	for itr in questions:
-		if any(item in itr["tags"] for item in tags):
-			response.append(itr)
-	return response
+    return response
+
 
 def selectQuestions(questions, size, maxSize):
     """
     Takes an array of questions, sorts them according to the creation
     date and returns a random selection of 'size' questions from a
     pool created with the first 'maxSize' sorted questions.
+
     :param questions: Array of questions stored in JSON
     :param size: Number of returned questions
     :param maxSize: Size of the random-selection pool
     :return: Filtered array of questions stored in JSON
     """
     pool = []
-    response = []
+    selection = []
 
-    pool = sorted(questions, key = lambda question: question["createdOn"], reverse = True)
+    pool = sorted(questions, key=lambda question: question["createdOn"], reverse=True)
 
     if maxSize < len(pool):
-        response = random.sample(pool[0:maxSize], size)
-    else: 
+        selection = random.sample(pool[0:maxSize], size)
+    else:
         if size < len(pool):
-            response = random.sample(pool, size)
-        else :
-            response = pool
+            selection = random.sample(pool, size)
+        else:
+            selection = pool
 
-    return response
+    return selection
+
 
 def selectYear(questions, year):
     """
@@ -143,7 +150,7 @@ def generateQuiz(questions, quiz_settings):
     current_year = now.year
 
     for difficulty in difficulties:
-        difficulty_pool = selectDifficulty(questions, difficulties.index(difficulty) + 1) 
+        difficulty_pool = selectDifficulty(questions, difficulties.index(difficulty) + 1)
         required_questions = quiz_settings[difficulty]
 
         for year in range(1970, current_year + 1):
@@ -151,7 +158,7 @@ def generateQuiz(questions, quiz_settings):
             year_pool = selectYear(difficulty_pool, year)
             tags_pool = selectTags(year_pool, quiz_settings['chapters'])
             selection = selectQuestions(tags_pool, required_questions, quiz_settings['questions'])
-            
+
             required_questions = required_questions - len(selection)
             quiz = quiz + selection
             """
@@ -160,7 +167,6 @@ def generateQuiz(questions, quiz_settings):
             """
             if required_questions == 0:
                 break
-
 
     return quiz
 
@@ -172,20 +178,22 @@ if __name__ == '__main__':
 
     try:
         question_collection = \
-            getCollection(db_settings['database-ip'], db_settings['database-name'], db_settings['question-collection'])
+            getCollection(db_settings['database-ip'], db_settings['database-name'],
+                          db_settings['question-collection'])
     except:
-        print('\033[0;31m' + 'error: ' + '\033[0m' + 'Connection to question-collection failed. Check database settings.')
+        print('\033[0;31m' + 'error: ' + '\033[0m' +
+              'Connection to question-collection failed. Check database settings.')
     try:
         test_collection = \
-            getCollection(db_settings['database-ip'], db_settings['database-name'], db_settings['test-collection'])
+            getCollection(db_settings['database-ip'], db_settings['database-name'],
+                          db_settings['test-collection'])
     except:
-        print('\033[0;31m' + 'error: ' + '\033[0m' + 'Connection to test-collection failed. Check database settings.')
+        print('\033[0;31m' + 'error: ' + '\033[0m' +
+              'Connection to test-collection failed. Check database settings.')
 
     questions = submitQuery(question_collection, {})
 
     quiz = generateQuiz(questions, quiz_settings)
 
     for question in quiz:
-         print(question)
-
-        
+        print(question)
