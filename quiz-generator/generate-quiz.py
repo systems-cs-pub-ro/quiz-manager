@@ -4,6 +4,8 @@ import datetime
 import json
 import pymongo
 import logging
+import xml.etree.ElementTree as ElementTree
+import xml.dom.minidom as minidom
 
 log_format = '%(levelname)s: %(message)s'
 logging.basicConfig(format=log_format)
@@ -168,6 +170,49 @@ def generateQuiz(questions, quiz_settings):
 
     return quiz
 
+def json2mXML(jsonQuestion, quiz):
+    """
+    Generates the Moodle XML entry for the given question
+
+    :param jsonQuestion: a question stored in JSON
+    :param quiz: the quiz to which the question is added
+    :return: the question stored in mXML
+    """
+    # creating the hierarchy
+    question = ElementTree.SubElement(quiz, 'question')
+    questionText = ElementTree.SubElement(question, 'questionText')
+    tags = ElementTree.SubElement(question, 'tags')  
+    questionTextText = ElementTree.SubElement(questionText, 'text')
+    question.set('type', 'multichoice')
+    questionText.set('format', 'html')
+    questionTextText.text = jsonQuestion['statement']
+    
+    # adding the difficulty tag
+    tag = ElementTree.SubElement(tags, 'tag')
+    tagText = ElementTree.SubElement(tag, 'text')
+    tagText.text = 'Dificulty=' + str(jsonQuestion['difficulty'])
+
+    # adding other tags
+    for jsonTag in jsonQuestion['tags']:
+        tag = ElementTree.SubElement(tags, 'tag')
+        tagText = ElementTree.SubElement(tag, 'text')
+        tagText.text = jsonTag
+
+    # computing the number of points for each correct answer
+    fraction = 100.0 / jsonQuestion['correctAnswersNo']
+
+    # adding the answers in the file
+    for jsonAnswer in jsonQuestion['answers']:
+        answer = ElementTree.SubElement(question, 'answer')
+        answerText = ElementTree.SubElement(answer, 'text')
+        answerText.text = jsonAnswer['statement']
+        if (jsonAnswer['correct']):
+            answer.set('fraction', str(fraction))
+        else:
+            answer.set('fraction', '0')
+
+    return quiz
+
 
 if __name__ == '__main__':
     config = openJsonConfig()
@@ -193,5 +238,21 @@ if __name__ == '__main__':
 
     quiz = generateQuiz(questions, quiz_settings)
 
+    quizMXML = ElementTree.Element('quiz')
+
     for question in quiz:
-        print(question)
+        quizMXML = json2mXML(question, quizMXML)
+
+    roughXML = ElementTree.tostring(quizMXML)
+    reparsed = minidom.parseString(roughXML)
+    prettyXML = reparsed.toprettyxml(indent="  ")
+
+    # makes a strin with current date and time
+    now = datetime.datetime.now()
+    strTime = now.strftime("%d%m%Y_%H%M%S")
+
+    # filename pattern: "Quiz_DDMMYYYY_HHMMSS.xml"
+    filename = "Quiz_" + strTime + ".xml"
+
+    moodleXMLFile = open(filename, "w")
+    moodleXMLFile.write(prettyXML)
