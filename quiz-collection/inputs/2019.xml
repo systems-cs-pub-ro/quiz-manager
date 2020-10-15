@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+<!-- question: 1952  -->
+  <question type="multichoice">
+    <name>
+      <text>Test Question</text>
+    </name>
+    <questiontext format="html">
+      <text>Test Question Statement?</text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <correctfeedback format="html">
+      <text></text>
+    </correctfeedback>
+    <partiallycorrectfeedback format="html">
+      <text></text>
+    </partiallycorrectfeedback>
+    <incorrectfeedback format="html">
+      <text></text>
+    </incorrectfeedback>
+    <answer fraction="100" format="html">
+      <text>Answer 1</text>
+      <feedback format="html">
+        <text></text>
+      </feedback>
+    </answer>
+    <answer fraction="-50" format="html">
+      <text>Answer 2</text>
+      <feedback format="html">
+        <text></text>
+      </feedback>
+    </answer>
+    <answer fraction="-50" format="html">
+      <text>Answer 3</text>
+      <feedback format="html">
+        <text></text>
+      </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text>Answer 4</text>
+      <feedback format="html">
+        <text></text>
+      </feedback>
+    </answer>
+    <answer fraction="100" format="html">
+      <text>Answer 5</text>
+      <feedback format="html">
+        <text></text>
+      </feedback>
+    </answer>
+  </question>
+
+</quiz>
