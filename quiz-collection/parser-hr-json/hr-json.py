@@ -1,9 +1,10 @@
 import json
 import sys
+import getopt
 
-# UTILITY FUNCTION TO CAST VALUES WHEN PROCESSING TAGS
+
+# Utility function for casting types of tags
 def cast(variable, type):
-
     if type is str:
         return str(variable)
     elif type is bool:
@@ -14,140 +15,160 @@ def cast(variable, type):
         return float(variable)
     elif type is list:
         return list(variable.split(','))
-    
+
     return variable
 
-# Load the Structure file (needed to determine types of tags) 
+
+# Load the Structure file (needed to determine types of tags)
 def loadStructure():
     try:
         structure = open("./structure.json", "r")
-    except:
+    except structure is None:
         print("Structure file not found!")
         sys.exit(0)
 
     return json.load(structure)
+
 
 # Returns a list of "key" : value pairs
 def getTagList(line, question):
     tags = list()
     pairs = line.split(';')
 
-    for pair in pairs: 
+    for pair in pairs:
         key = pair.split(':')[0]
 
         # Check if end of tagline was reached ('\n')
-        if(ord(key[0]) is 10) : continue
+        if(ord(key[0]) is 10):
+            continue
 
         value = pair.split(':')[1].rstrip()
-        # Convert value from string to appropiate type (found in structure.json) 
-        # Else generate a list and append it to the "tags"
+# Convert value from string to appropiate type (found in structure.json)
+# Else generate a list and append it to "tags"
         if question.get(key) is not None:
             value = cast(value, type(question[key]))
         else:
             value = cast(value, list)
             # First value will be the tag name to avoid any confusion
-            value.insert(0, key)
 
-        tags.append({key:value})
+        tags.append({key: value})
 
     return tags
 
-def tagAssign(question, tags) : 
 
-    # Will assign each tag to the question dict
-    # If tag key is not found in dict keys it will be assigned to "tags" by default
+# Will assign each tag to the question dict
+# If tag key is not found in dict keys it will be assigned to "tags" by default
+def tagAssign(question, tags):
     for i in range(len(tags)):
         key = next(iter(tags[i]))
 
-        if question.get(key) == None:
-            question["tags"].append(tags[i][key])
-        else :
+        if question.get(key) is None:
+            question["tags"][key] = tags[i][key]
+        else:
             question[key] = tags[i][key]
 
-def getAnswers(iFileHandle, question):
 
-    line = iFileHandle.readline()
-    newAnswer = question["answers"].pop(0)
+# Generate an answer list that will later be assigned to the question
+def getAnswers(file_handle, question):
+    line = file_handle.readline()
+    new_answer = question["answers"].pop(0)
 
-    # Generate an answer list that will later be assigned to the question
-    answerList = list()
+    answer_list = list()
     correctAnswersNo = 0
 
-    # Looping through all the answers
+# Looping through all the answers
     while(line != '\n'):
         # Initialising a new answer to be added to the answer list
-        newAnswer = dict(newAnswer)
+        new_answer = dict(new_answer)
 
-        newAnswer["statement"] = line[2:].rstrip()
-        if line[0] == '+' : 
-            newAnswer["correct"] = True
+        new_answer["statement"] = line[2:].rstrip()
+        if line[0] == '+':
+            new_answer["correct"] = True
             correctAnswersNo += 1
-        else : 
-            newAnswer["correct"] = False
-            newAnswer["grade"] = -0.5
-        
-        answerList.append(newAnswer)
-        line = iFileHandle.readline()
+        else:
+            new_answer["correct"] = False
+            new_answer["grade"] = -0.5
 
-    # After the number of correct answers is known, a grade can be assigned to each correct answer
-    for answer in answerList:
-        if answer["correct"] is True : answer["grade"] = 1/correctAnswersNo
+        answer_list.append(new_answer)
+        line = file_handle.readline()
 
-    question["answers"].append(answerList)
+# After the number of correct answers is known
+# a grade can be assigned to each correct answer
+    for answer in answer_list:
+        if answer["correct"] is True:
+            answer["grade"] = 1/correctAnswersNo
+
+    question["answers"].append(answer_list)
     question["correctAnswersNo"] = correctAnswersNo
 
-def genJSON(outputFile, quiz):
-    # Generare document JSON din lista de intrebari
-    with open(outputFile, 'w', encoding='utf8') as json_file:
+
+# Generate the JSON file using a list of questions
+def gen_JSON(output_file, quiz):
+    with open(output_file, 'w', encoding='utf8') as json_file:
         json.dump(quiz, json_file, ensure_ascii=False, indent=4)
 
-def main(argv):
 
+def main(argv):
     # All questions will be stored in this list
     quiz = list()
-    # Saving template
-    
-    # CHECK IF INPUT FILE EXISTS AND OPEN INPUT FILE
-    inputFile = argv[0]
+
+    # Check if input file exists and import it
+    infile_name = ''
+    outfile_name = ''
+
     try:
-        iFileHandle = open(inputFile, "r")
-    except:
-        print("No Human Readable Format Question File has been inputted/found - use 'python3 hr-json.py input_file'")
+        opts, _ = getopt.getopt(argv, "i:o:")
+    except getopt.GetoptError:
+        print('Bad arguments')
+        sys.exit(2)
+
+    for opt, arg in opts:
+        if opt in ("-i"):
+            infile_name = arg
+        elif opt in ("-o"):
+            outfile_name = arg
+
+    outfile = open(outfile_name, "w")
+
+    try:
+        file_handle = open(infile_name, "r")
+    except FileNotFoundError:
+        print("No Human Readable Format Question \
+File has been inputted/found")
         sys.exit(0)
 
-
-    line = iFileHandle.readline()
+    line = file_handle.readline()
     # Read all questions and stop at EOF
-    while line :
-        # newQuestion that will be added to the question list
+    while line:
+        # new_question that will be added to the question list
         # default template loaded
-        newQuestion = loadStructure()
-        
-        # Read the question's tag line
-        tags = getTagList(line,newQuestion)
+        new_question = loadStructure()
 
-        # ADD ALL TAGS TO QUESTION
-        tagAssign(newQuestion,tags)
-        
-        # READING QUESTION STATEMENT UNTIL + or - IS FOUND
-        line = iFileHandle.readline()
+        # Read the question's tag line
+        tags = getTagList(line, new_question)
+
+        # Add all tags to question
+        tagAssign(new_question, tags)
+
+        # Reading question statement
+        line = file_handle.readline()
         while(1):
-            pos = iFileHandle.tell()
-            newQuestion["statement"] += line
-            line = iFileHandle.readline()
+            pos = file_handle.tell()
+            new_question["statement"] += line
+            line = file_handle.readline()
             if(line[0] == "+" or line[0] == "-"):
-                #REVERT FILE POINTER SO FIRST ANSWER IS NOT LOST
-                iFileHandle.seek(pos)
+                # Revert file pointer so first answer is not lost
+                file_handle.seek(pos)
                 break
 
-        # READING ANSWERS 
-        getAnswers(iFileHandle, newQuestion)
-        quiz.append(newQuestion)
-        line = iFileHandle.readline()
-
+        # Reading answers
+        getAnswers(file_handle, new_question)
+        quiz.append(new_question)
+        line = file_handle.readline()
 
     # Generate JSON file
-    genJSON("./json_output/output.json", quiz)
+    gen_JSON(outfile_name, quiz)
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])
