@@ -198,18 +198,12 @@ def json2mXML(jsonQuestion, quiz):
         tagText = ElementTree.SubElement(tag, 'text')
         tagText.text = jsonTag
 
-    # computing the number of points for each correct answer
-    fraction = 100.0 / jsonQuestion['correctAnswersNo']
-
     # adding the answers in the file
     for jsonAnswer in jsonQuestion['answers']:
         answer = ElementTree.SubElement(question, 'answer')
         answerText = ElementTree.SubElement(answer, 'text')
         answerText.text = jsonAnswer['statement']
-        if (jsonAnswer['correct']):
-            answer.set('fraction', str(fraction))
-        else:
-            answer.set('fraction', '0')
+        answer.set('fraction', str(jsonAnswer['grade']))
 
     return quiz
 
