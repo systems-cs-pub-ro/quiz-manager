@@ -4,7 +4,7 @@
 The following is a set of guidelines for contributing to Quiz Manager, which is hosted in the [Systems Organization](https://github.com/systems-cs-pub-ro) on GitHub. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
 ### Code of Conduct
-This project and everyone participating in it is governed by the [Code of Conduct]](../blob/master/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. 
+This project and everyone participating in it is governed by the [Code of Conduct](../blob/master/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. 
 
 ### Pull Requests
 The process described here has several goals:
@@ -24,7 +24,7 @@ Please add in you PR the following information to be considered by the maintaine
     * How did you verify that all new functionality works as expected?
     * How did you verify that all changed functionality works as expected?
 
-Working on your first Pull Request? You can learn how from this free series, How to Contribute to an Open Source Project on GitHub.
+Working on your first Pull Request? You can learn how from this free series, [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github) or follow the steps in [Git Immersion Tutorial](https://gitimmersion.com/).
 
 ### How to report a bug
 Any security issues should be submitted directly to [MAIL]  in order to determine whether you are dealing with a security issue, ask yourself these two questions:
