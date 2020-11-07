@@ -49,7 +49,7 @@ if [ $merge -eq 1 ]; then
         jsonFile=${JSONFiles}$jsonFile
         cat $jsonFile  | tail -n+2 | head -n-1 >> $mergeFile
         echo "," >> $mergeFile
-        
+        rm $jsonFile
     done
     temp="./json_output/merge.temp"
     touch $temp 

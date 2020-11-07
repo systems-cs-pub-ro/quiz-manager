@@ -1,14 +1,17 @@
 [
     {
-        "createdOn": "n/a",
-        "lastUsed": "n/a",
+        "createdOn": "2019-01-01T00:00:00",
+        "lastUsed": "2019-01-01T00:00:00",
         "difficulty": 0,
         "statement": "Test Question Statement?\n",
         "tags": {
             "topics": [
-                "n/a"
+                "Demo"
             ],
             "reviewed_by": [
+                "GC"
+            ],
+            "author": [
                 "n/a"
             ]
         },

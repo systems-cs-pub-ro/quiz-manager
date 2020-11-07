@@ -3,6 +3,7 @@ import sys
 import getopt
 import xml.etree.ElementTree as ET
 import unicodedata
+import re
 from topicDict import topicDict, topicList
 
 
@@ -49,6 +50,23 @@ def readQuestion(line, file_handle):
     return question
 
 
+# Remove unwanted characters impending keyword finding
+def filter(bin):
+    for i in range(len(bin)):
+        bin[i] = bin[i].replace("/", " ")
+        bin[i] = bin[i].replace("?", " ")
+        bin[i] = bin[i].replace(",", " ")
+        bin[i] = bin[i].replace("(", " ")
+        bin[i] = bin[i].replace(")", " ")
+        bin[i] = bin[i].replace("</pre>", " ")
+        bin[i] = bin[i].replace("<p>", " ")
+        bin[i] = bin[i].replace("</p>", " ")
+        bin[i] = bin[i].replace("<br>", " ")
+        bin[i] = bin[i].replace("</br>", " ")
+        bin[i] = bin[i].replace("\"", " ")
+        bin[i] = bin[i].replace("-", " ")
+
+
 def main(argv):
     input_file = ''
     output_file = ''
@@ -89,18 +107,7 @@ def main(argv):
                 bin += " " + ans[1:]
 
         bin = bin.rstrip().lower().split()
-        # Remove unwanted characters impending keyword finding
-        for i in range(len(bin)):
-            bin[i] = bin[i].replace("/", " / ")
-            bin[i] = bin[i].replace("?", "")
-            bin[i] = bin[i].replace(",", "")
-            bin[i] = bin[i].replace("(", "")
-            bin[i] = bin[i].replace(")", "")
-            bin[i] = bin[i].replace("</pre>", "")
-            bin[i] = bin[i].replace("<p>", "")
-            bin[i] = bin[i].replace("</p>", "")
-            bin[i] = bin[i].replace("<br>", "")
-            bin[i] = bin[i].replace("</br>", "")
+        filter(bin)
 
         topicCount = dict()
         topicCount = topicCount.fromkeys(topicList)
@@ -118,12 +125,13 @@ def main(argv):
 
         topicTag = ""
         for topic in topicCount:
-            percentage = topicCount[topic] * 100 / occurences
-            if (topicCount[topic] is not None and percentage >= 20.0):
+            if (topicCount[topic] is not None):
                 topicTag += topic + ","
 
         newTag = "topics:" + topicTag[:-1]
-        question["tagline"] = question["tagline"].replace("topics:n/a", newTag)
+        if(len(topicTag) == 0):
+            newTag = "topics:n/a"
+        question["tagline"] = re.sub("topics:[a-zA-Z,/_]*",newTag,question["tagline"])
         question["tagline"] = question["tagline"][:-1]
         outfile.write(question["tagline"] + "\n")
         outfile.write(question["statement"])

@@ -41,8 +41,9 @@ def getTagList(line, question):
         # Check if end of tagline was reached ('\n')
         if(ord(key[0]) is 10):
             continue
+        
+        value = pair.split(':',1)[1].rstrip()
 
-        value = pair.split(':')[1].rstrip()
 # Convert value from string to appropiate type (found in structure.json)
 # Else generate a list and append it to "tags"
         if question.get(key) is not None:
@@ -52,7 +53,7 @@ def getTagList(line, question):
             # First value will be the tag name to avoid any confusion
 
         tags.append({key: value})
-
+    
     return tags
 
 
@@ -81,15 +82,16 @@ def getAnswers(file_handle, question):
         # Initialising a new answer to be added to the answer list
         new_answer = dict(new_answer)
 
-        new_answer["statement"] = line[2:].rstrip()
-        if line[0] == '+':
-            new_answer["correct"] = True
-            correctAnswersNo += 1
-        else:
-            new_answer["correct"] = False
-            new_answer["grade"] = -0.5
+        if(len(line) > 0):
+            new_answer["statement"] = line[2:].rstrip()
+            if line[0] == '+':
+                new_answer["correct"] = True
+                correctAnswersNo += 1
+            else:
+                new_answer["correct"] = False
+                new_answer["grade"] = -0.5
 
-        answer_list.append(new_answer)
+            answer_list.append(new_answer)
         line = file_handle.readline()
 
 # After the number of correct answers is known

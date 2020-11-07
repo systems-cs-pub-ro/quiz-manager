@@ -15,7 +15,7 @@ while getopts ":ijuh" opt; do
         exit 0
         ;;
     j ) # Remove old JSON output files
-          rm $JSON 2>/dev/null
+        rm $JSON 2>/dev/null
         ;;
     i ) # Remove old XML input files
         rm $XML 2>/dev/null

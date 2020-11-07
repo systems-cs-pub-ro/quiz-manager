@@ -93,14 +93,16 @@ def main(argv):
 # Extract the question name and answers and add them to the file
 # The answers which have a positive fraction will have '+' in front of them,
 # to mark them as correct. Otherwise, a '-' will be placed.
-    idkstring = "Nu știu / Nu răspund".upper()
+    filter = []
+    filter.append("Nu știu / Nu răspund".upper())
+    filter.append("Nu știu/Nu răspund".upper())
 
     for element in root.iter('question'):
         if element.attrib['type'] == 'multichoice':
             statement = element[1][0].text
             answers = ""
             for answer in element.iter('answer'):
-                if (answer[0].text.upper() == idkstring):
+                if (answer[0].text.upper() in filter):
                     continue
                 if float(answer.attrib['fraction']) > 0:
                     answers += ('+ ' + answer[0].text + '\n')
