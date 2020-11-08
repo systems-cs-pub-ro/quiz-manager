@@ -191,13 +191,16 @@ def json2mXML(jsonQuestion, quiz):
     tag = ElementTree.SubElement(tags, 'tag')
     tagText = ElementTree.SubElement(tag, 'text')
     tagText.text = 'Dificulty=' + str(jsonQuestion['difficulty'])
-
+    
+    
     # adding other tags
     for jsonTag in jsonQuestion['tags']:
-        tag = ElementTree.SubElement(tags, 'tag')
-        tagText = ElementTree.SubElement(tag, 'text')
-        tagText.text = jsonTag
-
+        if jsonTag['key']:
+            tag = ElementTree.SubElement(tags, 'tag')
+            tagText = ElementTree.SubElement(tag, 'text')
+            tagText.text = jsonTag['key'] + ":" + ','.join(jsonTag['values'])
+    
+    
     # adding the answers in the file
     for jsonAnswer in jsonQuestion['answers']:
         answer = ElementTree.SubElement(question, 'answer')
@@ -230,11 +233,12 @@ if __name__ == '__main__':
 
     questions = submitQuery(question_collection, {})
 
-    quiz = generateQuiz(questions, quiz_settings)
+    quiz = questions
+    #quiz = generateQuiz(questions, quiz_settings)
 
     quizMXML = ElementTree.Element('quiz')
 
-    for question in quiz:
+    for question in questions:
         quizMXML = json2mXML(question, quizMXML)
 
     roughXML = ElementTree.tostring(quizMXML)
