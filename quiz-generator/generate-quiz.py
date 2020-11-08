@@ -194,9 +194,10 @@ def json2mXML(jsonQuestion, quiz):
 
     # adding other tags
     for jsonTag in jsonQuestion['tags']:
-        tag = ElementTree.SubElement(tags, 'tag')
-        tagText = ElementTree.SubElement(tag, 'text')
-        tagText.text = jsonTag
+        if jsonTag['key']:
+            tag = ElementTree.SubElement(tags, 'tag')
+            tagText = ElementTree.SubElement(tag, 'text')
+            tagText.text = jsonTag['key'] + ":" + ','.join(jsonTag['values'])
 
     # adding the answers in the file
     for jsonAnswer in jsonQuestion['answers']:
