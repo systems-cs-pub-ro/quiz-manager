@@ -192,7 +192,6 @@ def json2mXML(jsonQuestion, quiz):
     tagText = ElementTree.SubElement(tag, 'text')
     tagText.text = 'Dificulty=' + str(jsonQuestion['difficulty'])
     
-    
     # adding other tags
     for jsonTag in jsonQuestion['tags']:
         if jsonTag['key']:
