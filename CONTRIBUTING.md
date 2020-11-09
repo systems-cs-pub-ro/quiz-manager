@@ -6,6 +6,11 @@ The following is a set of guidelines for contributing to Quiz Manager, which is 
 ### Code of Conduct
 This project and everyone participating in it is governed by the [Code of Conduct](../blob/master/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. 
 
+### Getting started
+1. Create your own fork of the code
+2. Do the changes in your fork
+3. Send a pull request indicating that you added / modified. 
+
 ### Pull Requests
 The process described here has several goals:
 * Maintain Quiz Manager's quality
@@ -64,4 +69,17 @@ If you find yourself wishing for a feature that doesn't exist in the Quiz Manage
 * 👕 :shirt: when removing linter warnings
 
 ### Issue and Pull Request Labels
-TODO
+#### Issues Labels
+| *Issues*  | *Description*|
+| `bug`   | Confirmed bugs or reports that are very likely to be bugs.|
+| `question`  | Questions more than bug reports or feature requests (e.g. how do I do X).|
+
+#### Pull Request Labels
+| *Label name*  | *Description*|
+| `work-in-progress`   | Pull requests which are still being worked on, more changes will follow.|
+| `needs-review`  | Pull requests which need code review, and approval from maintainers. |
+| `under-review`  | Pull requests being reviewed by maintainers. |
+| `requires-changes` | Pull requests which need to be updated based on review comments and then reviewed again.|
+
+### Attribution
+This CONTRIBUTING.md is adapted from [Atom](https://github.com/atom/atom/blob/master/CONTRIBUTING.md), [ember.js](https://github.com/emberjs/ember.js/blob/master/CONTRIBUTING.md), [Node.js](https://github.com/nodejs/node/blob/master/CONTRIBUTING.md), [Nayafia's Template](https://github.com/nayafia/contributing-template/blob/HEAD/CONTRIBUTING-template.md).
