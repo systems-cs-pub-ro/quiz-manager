@@ -1,11 +1,11 @@
 {
-    "createdOn":"",
-    "lastUsed":"",
+    "createdOn":"1970-01-01",
+    "lastUsed":"1970-01-01",
     "difficulty":0,
     
     "statement":"",
-    "tags" : {
-    },
+    "tags" : [
+    ],
     "answers": [
         {
             "statement":"", 
