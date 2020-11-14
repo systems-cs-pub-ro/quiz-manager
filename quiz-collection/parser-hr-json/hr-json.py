@@ -74,7 +74,7 @@ def tagAssign(question, tags):
 def getAnswers(file_handle, question):
     line = file_handle.readline()
 
-    # Popping empty answer from structure file
+    # Popping empty answer copied from structure file
     new_answer = question["answers"].pop(0)
     answer_list = list()
     correctAnswersNo = 0
@@ -84,18 +84,22 @@ def getAnswers(file_handle, question):
         # Check for end of file
         if(line == ""):
             break
-
+        
+        # Read an answer's statement until meeting another answer
+        # Or until meeting a line which contains only \n'
         while(line[0] != "+" and line[0] != "-"):
             new_answer["statement"] += line
+            print(new_answer["statement"])
+            pos = file_handle.tell()
             line = file_handle.readline()
-            # Check for end of file
-            if(line == ""):
-                return
+            if(line == "\n"):
+                file_handle.seek(pos)
+                break
             
         # Initialising a new answer to be added to the answer list
         new_answer = dict(new_answer)
         
-        if(len(line) > 0):
+        if(line != "\n"):
             new_answer["statement"] = line[2:]
             if line[0] == '+':
                 new_answer["correct"] = True
