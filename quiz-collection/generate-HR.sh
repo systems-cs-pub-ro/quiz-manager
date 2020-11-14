@@ -81,10 +81,10 @@ do
         else
             echo "No valid year found in filename $inputFile, \
 assigning 1970 as default value"
-            year=0
+            year=1970
         fi
     else
-        year=0
+        year=1970
     fi
 
     echo "Processing $inputFile file number $i"
