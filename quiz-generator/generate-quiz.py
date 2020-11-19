@@ -222,16 +222,31 @@ if __name__ == '__main__':
         logging.error('Connection to question-collection failed. Check database settings.')
         sys.exit(2)
     try:
-        test_collection = \
+        quiz_collection = \
             getCollection(db_settings['database-ip'], db_settings['database-name'],
-                          db_settings['test-collection'])
+                          db_settings['quiz-collection'])
     except:
-        logging.error('Connection to test-collection failed. Check database settings.')
+        logging.error('Connection to quiz-collection failed. Check database settings.')
         sys.exit(2)
 
     questions = submitQuery(question_collection, {})
 
     quiz = generateQuiz(questions, quiz_settings)
+
+    # Save question IDs into a quiz document which is inserted into quiz database
+    if db_settings['updateQuizCollection'] and len(quiz) > 0:
+        quizDoc = {}
+
+        quizIDs = []
+        for question in quiz:
+            quizIDs.append(question['_id'])
+
+            # Update lastUsed field for every question in the generated quiz
+            question_collection.update_one({"_id": question['_id']}, { "$set": {"lastUsed": datetime.datetime.now()} })
+
+        quizDoc.update({"quizIDs": quizIDs})
+        quizDoc.update({"generatedOn": datetime.datetime.now()})
+        quiz_collection.insert_one(quizDoc)
 
     quizMXML = ElementTree.Element('quiz')
 
