@@ -11,6 +11,7 @@
         "database-ip": "",
         "database-name": "quiz-database",
         "question-collection": "questions",
-        "test-collection": "quizzes"
+        "quiz-collection": "quizzes",
+        "updateQuizCollection": true
     }
 }
