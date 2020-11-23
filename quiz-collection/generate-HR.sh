@@ -65,24 +65,26 @@ if [ -d "./inputs" ] && [ $(ls $inputFiles | wc -l) -gt 0 ]; then
 else
     echo "No input files found, make sure there are \
 valid MXML files in \"./inputs/\" and rerun this script!"
-    echo "Usage: ./generate-HR.sh extraTag1,extraTag2,...,extraTagN "
+    echo "Use ./generate-HR.sh -h for help"
     exit 1
 fi
 
 i=0
 scriptDir=./parser-mxml-hr/mxml-hr.py
 for inputFile in $inputFiles
-do 
+do
+    # Looking for valid year numbers in filenames
     if [ $auto_year -eq 1 ]; then
-        if ! $(echo "$inputFile" | grep -o -e "[2][0][0-2][0-9]") 2> /dev/null ; then
-            year=$(echo "$inputFile" | grep -o -e "[2][0][0-2][0-9]")
+        echo $inputFile
+        if [ $(echo "$inputFile" | grep -o -e "[0-9][0-9][0-9][0-9]\.xml") 2> /dev/null ]; then
+            year=$(echo "$inputFile" | grep -o -e "[0-9][0-9][0-9][0-9]")
         else
             echo "No valid year found in filename $inputFile, \
-assigning 0 as default value"
-            year=0
+assigning 1970 as default value"
+            year=1970
         fi
     else
-        year=0
+        year=1970
     fi
 
     echo "Processing $inputFile file number $i"
@@ -91,7 +93,7 @@ assigning 0 as default value"
             "$extraTags" -y "$year" -u "$reviewer"
     
     if [ $auto_topic -eq 1 ]; then
-        python3 auto-topic/auto-topic.py -i "$HR$i.hr" -o $(echo "$HR""_aa_$i.hr")
+        python3 auto-topic/auto-topic.py -i "$HR$i.hr" -o $(echo "$HR""_AT_$i.hr")
         rm "$HR$i.hr"
     fi
 

@@ -12,8 +12,7 @@
 - [ ] Install script and run script that can run both JSON and HR parser scripts
 - [ ] Support for multiple quiz types
 - [ ] Improve AutoTopic dict via word cloud generator from course/lab
-- [ ] Check for valid `structure.json` file
-- [ ] Filter for more unwanted words/substrings (currently only "Nu stiu / Nu raspund"
+- [ ] Filter for more unwanted words/substrings (currently only "Nu stiu / Nu raspund")
 - [ ] Allow for more customization via `config.json` file
 
 
@@ -36,11 +35,12 @@
 
 |Opt.|Description |
 |---|---|
-|`-e tag1,tag2,...,tagN` | Add extra arguments separated by comma 			topics,reviewed_by`
+|`-e tag1,tag2,...,tagN` | Add extra arguments separated by comma topics,reviewed_by
 |`-y` | Auto insert year if contained in input filename (eg. `./input/2019.xml`)  
 |`-u username` | If `reviewed_by` tag is present, auto assign name of reviewer 
 |`-c`| Clean old HR files 
 |`-t`| Auto Assign `topic` tag values for each question based on Dictionary 
+|`-h` | Display help message
 
 > **Human Readable Format**
 ``` 
@@ -63,6 +63,7 @@
 |---|---|
 |`-c` | Clean old JSON output files before creating new ones
 |`-m` | Merge all JSON output files into a single file
+|`-h` | Display help message
 
 > **Structure file (structure.json)**
 
@@ -115,3 +116,4 @@
 |`-i` | Remove old XML input files
 |`-j` | Remove old JSON output files
 |`-u` | Remove old Human Readable files
+|`-h` | Display help message

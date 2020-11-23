@@ -41,15 +41,18 @@ def getTagList(line, question):
         # Check if end of tagline was reached ('\n')
         if(ord(key[0]) is 10):
             continue
+        
+        value = pair.split(':',1)[1].rstrip()
 
-        value = pair.split(':')[1].rstrip()
+        if(key == "createdOn" or key == "lastUsed"):
+            value += "T00:00:00"
+        
 # Convert value from string to appropiate type (found in structure.json)
 # Else generate a list and append it to "tags"
         if question.get(key) is not None:
             value = cast(value, type(question[key]))
         else:
             value = cast(value, list)
-            # First value will be the tag name to avoid any confusion
 
         tags.append({key: value})
 
@@ -61,9 +64,8 @@ def getTagList(line, question):
 def tagAssign(question, tags):
     for i in range(len(tags)):
         key = next(iter(tags[i]))
-
         if question.get(key) is None:
-            question["tags"][key] = tags[i][key]
+            question["tags"].append({"key":key , "values":tags[i].get(key)})
         else:
             question[key] = tags[i][key]
 
@@ -71,26 +73,45 @@ def tagAssign(question, tags):
 # Generate an answer list that will later be assigned to the question
 def getAnswers(file_handle, question):
     line = file_handle.readline()
-    new_answer = question["answers"].pop(0)
 
+    # Popping empty answer copied from structure file
+    new_answer = question["answers"].pop(0)
     answer_list = list()
     correctAnswersNo = 0
-
-# Looping through all the answers
+    # Looping through all the answers
     while(line != '\n'):
+
+        # Check for end of file
+        if(line == ""):
+            break
+        
+        # Read an answer's statement until meeting another answer
+        # Or until meeting a line which contains only \n'
+        while(line[0] != "+" and line[0] != "-"):
+            new_answer["statement"] += line
+            print(new_answer["statement"])
+            pos = file_handle.tell()
+            line = file_handle.readline()
+            if(line == "\n"):
+                file_handle.seek(pos)
+                break
+            
         # Initialising a new answer to be added to the answer list
         new_answer = dict(new_answer)
+        
+        if(line != "\n"):
+            new_answer["statement"] = line[2:]
+            if line[0] == '+':
+                new_answer["correct"] = True
+                correctAnswersNo += 1
+            else:
+                new_answer["correct"] = False
+                new_answer["grade"] = -0.5
 
-        new_answer["statement"] = line[2:].rstrip()
-        if line[0] == '+':
-            new_answer["correct"] = True
-            correctAnswersNo += 1
-        else:
-            new_answer["correct"] = False
-            new_answer["grade"] = -0.5
-
-        answer_list.append(new_answer)
+            answer_list.append(new_answer)
         line = file_handle.readline()
+
+            
 
 # After the number of correct answers is known
 # a grade can be assigned to each correct answer
