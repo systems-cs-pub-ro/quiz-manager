@@ -19,17 +19,6 @@ def cast(variable, type):
     return variable
 
 
-# Load the Structure file (needed to determine types of tags)
-def loadStructure():
-    try:
-        structure = open("./structure.json", "r")
-    except structure is None:
-        print("Structure file not found!")
-        sys.exit(0)
-
-    return json.load(structure)
-
-
 # Returns a list of "key" : value pairs
 def getTagList(line, question):
     tags = list()
@@ -39,7 +28,7 @@ def getTagList(line, question):
         key = pair.split(':')[0]
 
         # Check if end of tagline was reached ('\n')
-        if(ord(key[0]) is 10):
+        if ord(key[0]) == 10:
             continue
         
         value = pair.split(':',1)[1].rstrip()
@@ -119,7 +108,7 @@ def getAnswers(file_handle, question):
         if answer["correct"] is True:
             answer["grade"] = 1/correctAnswersNo
 
-    question["answers"].append(answer_list)
+    question["answers"] = answer_list
     question["correctAnswersNo"] = correctAnswersNo
 
 
@@ -163,7 +152,23 @@ File has been inputted/found")
     while line:
         # new_question that will be added to the question list
         # default template loaded
-        new_question = loadStructure()
+        new_question = {
+            "createdOn": "",
+            "lastUsed": "",
+            "difficulty": 0,
+
+            "statement": "",
+            "tags" : [
+            ],
+            "answers": [
+                {
+                    "statement": "",
+                    "correct": False,
+                    "grade": 0.0
+                }
+            ],
+            "correctAnswersNo": 0
+        }
 
         # Read the question's tag line
         tags = getTagList(line, new_question)
