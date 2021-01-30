@@ -1,4 +1,5 @@
 import datetime
+import getopt
 import json
 import sys
 import xml.etree.ElementTree as ElementTree
@@ -11,7 +12,7 @@ def json2mXML(jsonQuestion, quiz):
 
     :param jsonQuestion: a question stored in JSON
     :param quiz: the quiz to which the question is added
-    :return: the question stored in mXML
+    :return: the quiz stored in mXML
     """
     # creating the hierarchy
     question = ElementTree.SubElement(quiz, 'question')
@@ -52,12 +53,33 @@ def json2mXML(jsonQuestion, quiz):
 
     return quiz
 
-if __name__ == '__main__':
+def getArgs(argv):
+    input_file = ''
+    output_file = ''
     try:
-        with open('../test_questions.json') as json_file:
+        opts, args = getopt.getopt(sys.argv[1:], "hi:o:", ["ifile=", "ofile="])
+    except getopt.GetoptError:
+        print('Invalid command arguments\nUsage: python3 json-mxml.py -i <inputfile> -o <outputfile>')
+        sys.exit(2)
+
+    for opt, arg in opts:
+        if opt == '-h':
+            print('Usage: python3 json-mxml.py -i <inputfile> -o <outputfile>')
+            sys.exit()
+        elif opt in ("-i", "--ifile"):
+            input_file = arg
+        elif opt in ("-o", "--ofile"):
+            output_file = arg
+
+    return input_file, output_file
+
+if __name__ == '__main__':
+    input_file, output_file = getArgs(sys.argv[1:])
+    try:
+        with open(input_file) as json_file:
             questions = json.load(json_file)
     except:
-        print("JSON could not be loaded")
+        print("Invalid input file\nUsage: python3 json-mxml.py -i <inputfile> -o <outputfile>")
         sys.exit(1)
 
     quizMXML = ElementTree.Element('quiz')
@@ -69,12 +91,9 @@ if __name__ == '__main__':
     reparsed = minidom.parseString(roughXML)
     prettyXML = reparsed.toprettyxml(indent="  ")
 
-    # makes a strin with current date and time
-    now = datetime.datetime.now()
-    strTime = now.strftime("%d%m%Y_%H%M%S")
-
-    # filename pattern: "Quiz_DDMMYYYY_HHMMSS.xml"
-    filename = "Questions_" + strTime + ".xml"
-
-    moodleXMLFile = open(filename, "w")
-    moodleXMLFile.write(prettyXML)
+    try:
+        with open(output_file, "w") as mxml_file:
+            mxml_file.write(prettyXML)
+    except:
+        print("Invalid output file\nUsage: python3 json-mxml.py -i <inputfile> -o <outputfile>")
+        sys.exit(1)
