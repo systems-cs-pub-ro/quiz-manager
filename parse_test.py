@@ -1,11 +1,11 @@
 import json
 from xml.dom import minidom
-import parsing.hr as hr
-import parsing.mxml as mxml
+import parsers.hr as hr
+import parsers.mxml as mxml
 import xml.etree.ElementTree as ElementTree
 
 hr_file = open("./test_inputs/hr_test_input.hr")
-mxml_file = open("./test_inputs/mxml_test_input.hr.xml")
+mxml_file = open("./test_inputs/mxml_test_input.xml")
 
 # Testing HR > JSON
 hr_question = hr_file.read().split("\n\n")
