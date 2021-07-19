@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ElementTree
 import xml.dom.minidom as minidom
 from random import randrange
 
-def to_mxml(json_question : str, quiz : ElementTree) -> str:
+def json_to_mxml(json_question : str, quiz : ElementTree) -> str:
     """
     Generates the Moodle XML entry for the given question
 
@@ -50,7 +50,7 @@ def to_mxml(json_question : str, quiz : ElementTree) -> str:
     
     return quiz
 
-def from_mxml(xml: ElementTree.Element,
+def mxml_to_json(xml: ElementTree.Element,
                  reviewer: str = "n/a",
                  author: str = "n/a",
                  year: int = 2021,
