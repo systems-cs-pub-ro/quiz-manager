@@ -2,7 +2,7 @@ import json
 import re
 
 
-def to_hr(json_obj: str) -> str:
+def json_to_hr(json_obj: str) -> str:
     json_q = json.loads(json_obj)
 
     # Adding Tagline
