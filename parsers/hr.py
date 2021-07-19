@@ -27,7 +27,7 @@ def json_to_hr(json_obj: str) -> str:
         hr += correct + " " + stmt
     return hr
 
-def from_hr(hr: str) -> str:
+def hr_to_json(hr: str) -> str:
     '''
     Generate a single JSON object from a question in HR format
 
