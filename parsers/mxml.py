@@ -3,13 +3,13 @@ import xml.etree.ElementTree as ElementTree
 import xml.dom.minidom as minidom
 from random import randrange
 
-def json_to_mxml(json_question : str, quiz : ElementTree) -> str:
+def json_to_mxml(json_question : str, quiz : ElementTree) -> ElementTree:
     """
     Generates the Moodle XML entry for the given question
 
     :param jsonQuestion: a question stored in JSON
     :param quiz: the quiz to which the question is added
-    :return: the quiz stored in mXML
+    :return: a quiz stored in MXML format containing json_question
     """
     # creating the hierarchy
     json_obj = json.loads(json_question)
@@ -55,9 +55,16 @@ def mxml_to_json(xml: ElementTree.Element,
                  author: str = "n/a",
                  year: int = 2021,
                  topics: str = "n/a") -> str:
-    '''
-    Generate a single JSON object from a question in MXML format
-    '''
+    """
+    Generates a question in JSON format from MXML object
+
+    :param xml: a question stored in MXML format
+    :param reviewer: string that can contain the initials of the reviewer
+    :param author: string that can contain the initials of the question author
+    :param year: int that can contain the year the question was originally created
+    :param topics: string of comma separated values representing the topics related to the question
+    :return: the question stored in JSON format
+    """
     # Template question to be completed with necessary info and returned
     question = {
         "createdOn": "",
