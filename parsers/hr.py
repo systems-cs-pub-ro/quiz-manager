@@ -3,6 +3,11 @@ import re
 
 
 def json_to_hr(json_obj: str) -> str:
+    """
+    Generates a question in HR format from JSON string
+    :param json_obj: a question stored in JSON format
+    :return: a string representing a question in HR format 
+    """
     json_q = json.loads(json_obj)
 
     # Adding Tagline
@@ -28,12 +33,11 @@ def json_to_hr(json_obj: str) -> str:
     return hr
 
 def hr_to_json(hr: str) -> str:
-    '''
-    Generate a single JSON object from a question in HR format
-
-    hr - parameter of type str, contains a single question in HR format 
-    return - JSON object as string
-    '''
+    """
+    Generates a JSON string for the given HR question
+    :param hr: a string representing a question in HR format
+    :return: string representing a question in JSON format
+    """
     # Copy object to prevent side effects in caller
     hr_copy = str(hr).rstrip()
 
