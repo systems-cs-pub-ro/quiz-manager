@@ -11,7 +11,7 @@ mxml_file = open("./test_inputs/mxml_test_input.xml")
 hr_question = hr_file.read().split("\n\n")
 for hr_elem in hr_question:
     print("\nHR > JSON TEST", "\n")
-    print(hr.from_hr(hr_elem))
+    print(hr.hr_to_json(hr_elem))
 
 # Testing MXML > JSON
 mxml_str = mxml_file.read()
@@ -19,17 +19,17 @@ mxml_question = ElementTree.fromstring(mxml_str)
 json_mxml_arr = []
 for mxml_elem in mxml_question:
     if mxml_elem.tag == "question":
-        json_mxml_arr.append(mxml.from_mxml(mxml_elem))
+        json_mxml_arr.append(mxml.mxml_to_json(mxml_elem))
 
 print("\nMXML > JSON TEST", "\n", json_mxml_arr[0])
 # Testing JSON > HR
-res = hr.to_hr(json_mxml_arr[0])
+res = hr.json_to_hr(json_mxml_arr[0])
 print("\nJSON > HR TEST")
 print(res)
 
 # Testing JSON > MXML
 quizMXML = ElementTree.Element('quiz')
-res = mxml.to_mxml(json_mxml_arr[0], quizMXML)
+res = mxml.json_to_mxml(json_mxml_arr[0], quizMXML)
 
 # Pretty formatting
 roughXML = ElementTree.tostring(quizMXML)
