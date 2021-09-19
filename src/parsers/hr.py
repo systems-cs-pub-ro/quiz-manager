@@ -1,13 +1,21 @@
 import json
 import re
 
-def get_meta(map : dict, key : str):
-    if(not (key in map["metadata"])):
+def get_meta(question_dict : dict, key : str):
+    if(not (key in question_dict["metadata"])):
         return ""
-    if(len(map["metadata"][key]) == 1):
-        return map["metadata"][key][0]
+    if(len(question_dict["metadata"][key]) == 1):
+        return question_dict["metadata"][key][0]
     else:
-        return map["metadata"][key]
+        return question_dict["metadata"][key]
+
+def quiz_hr_to_json(file_content : str):
+    question_arr = file_content.split("\n\n")
+    question_arr_json = list(map(hr_to_json, question_arr))
+    return question_arr_json
+
+def quiz_json_to_hr(json_arr : list):
+    return list(map(json_to_hr, json_arr))
 
 def json_to_hr(json_obj: str) -> str:
     """
@@ -42,6 +50,7 @@ def hr_to_json(hr: str) -> str:
     :param hr: a string representing a question in HR format
     :return: string representing a question in JSON format
     """
+
     # Copy object to prevent side effects in caller
     hr_copy = str(hr).rstrip()
 
@@ -98,7 +107,6 @@ def hr_to_json(hr: str) -> str:
         answer[0] != "+" and answer[0] != "-")]
 
     grade = 1 / (question["correct_answers_no"] * 1.0)
-
     # Add answers to answer list in JSON object
     for answer in answer_list:
         if(answer[0] == "+"):

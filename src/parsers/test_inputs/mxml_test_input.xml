@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <quiz>
-
+<question type="multichoice">
+		<name>
+			<text>Test Question Statement?</text>
+		</name>
+		<questiontext format="html">
+			<text>Test Question Statement?</text>
+		</questiontext>
+		<tags>
+			<tag>
+				<text>difficulty=3</text>
+			</tag>
+			<tag>
+				<text>created_on=2019-01-01</text>
+			</tag>
+			<tag>
+				<text>topic=Topic1</text>
+			</tag>
+		</tags>
+		<single>false</single>
+		<answer fraction="33.33333333333333" format="html">
+			<text>Answer 1</text>
+		</answer>
+		<answer fraction="-50.0" format="html">
+			<text>Answer 2</text>
+		</answer>
+		<answer fraction="-50.0" format="html">
+			<text>Answer 3</text>
+		</answer>
+		<answer fraction="33.33333333333333" format="html">
+			<text>Answer 4</text>
+		</answer>
+		<answer fraction="33.33333333333333" format="html">
+			<text>Answer 5</text>
+		</answer>
+	</question>
 <!-- question: 1952  -->
   <question type="multichoice">
     <name>
@@ -59,5 +93,5 @@
       </feedback>
     </answer>
   </question>
-
+    
 </quiz>
