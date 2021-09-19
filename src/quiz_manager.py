@@ -5,6 +5,8 @@
 import click
 import parsers.hr as hr
 import parsers.mxml as mxml
+import checkers.check_hr as check_hr
+import sys
 
 @click.group()
 def cli():
@@ -65,6 +67,24 @@ def convert(input_file_path, output_file_path, input_format, output_format):
 
     with open(output_file_path, 'w', encoding="UTF-8") as output_file:
         output_file.write(conversion)
+
+@cli.command()
+@click.option('-t', '--type', 'type', required=True,
+    help='Type of the check that will be performed.\
+        (common - configuration independent\
+        specific - check for the values described in checkers/check.conf')
+@click.option('-i', '--input_file', 'input_file', required=True,
+    help='The file to be checked.')
+def check(type, input_file):
+    """
+        Checks the hr file provided as an input.
+    """
+    with open(input_file) as file:
+        if type == "common":
+            sys.exit(check_hr.check_common(input_file, file))
+        else:
+            sys.exit(check_hr.check_specific(input_file, file))
+
 
 if __name__ == '__main__':
     cli()
