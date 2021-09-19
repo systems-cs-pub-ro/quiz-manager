@@ -3,6 +3,8 @@
 """
 
 import click
+import parsers.hr as hr
+import parsers.mxml as mxml
 
 @click.group()
 def cli():
@@ -44,8 +46,22 @@ def convert(input_file_path, output_file_path, input_format, output_format):
     with open(input_file_path, 'r', encoding="UTF-8") as input_file:
         input_content = input_file.read()
 
-    # TODO: Add conversion here
     conversion = ''
+    if input_format == "JSON":
+        if output_format == "HR":
+            conversion = hr.quiz_json_to_hr(input_content)
+        elif output_format == "MXML":
+            conversion = mxml.quiz_json_to_mxml(input_content)
+    elif input_format == "HR":
+        if output_format == "JSON":
+            conversion = hr.quiz_hr_to_json(input_content)
+        elif output_format == "MXML":
+            conversion = mxml.quiz_json_to_mxml(hr.quiz_hr_to_json(input_content))
+    elif input_format == "MXML":
+        if output_format == "JSON":
+            conversion = mxml.quiz_mxml_to_json(input_content)
+        elif output_format == "HR":
+            conversion = hr.quiz_json_to_hr(mxml.quiz_mxml_to_json(input_content))
 
     with open(output_file_path, 'w', encoding="UTF-8") as output_file:
         output_file.write(conversion)
