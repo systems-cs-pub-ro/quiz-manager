@@ -1,59 +1,54 @@
 [
     {
-        "createdOn": "2019-01-01T00:00:00",
-        "lastUsed": "2019-01-01T00:00:00",
-        "difficulty": 0,
         "statement": "Test Question Statement?\n",
-        "tags": [
+        "metadata": {
+            "created_on": [
+                "2019-01-01"
+            ],
+            "lastUsed": [
+                "2019-01-01"
+            ],
+            "difficulty": [
+                "3"
+            ],
+            "topics": [
+                "Topic1",
+                "Topic2"
+            ],
+            "author": [
+                "GC"
+            ],
+            "reviewed_by": [
+                "GC"
+            ]
+        },
+        "answers": [
             {
-                "key": "topics",
-                "values": [
-                    "Topic1",
-                    "Topic2"
-                ]
+                "statement": "Answer 1\n",
+                "correct": true,
+                "grade": 0.3333333333333333
             },
             {
-                "key": "author",
-                "values": [
-                    "n/a"
-                ]
+                "statement": "Answer 2\n",
+                "correct": false,
+                "grade": -0.5
             },
             {
-                "key": "reviewed_by",
-                "values": [
-                    "GC"
-                ]
+                "statement": "Answer 3\n",
+                "correct": false,
+                "grade": -0.5
+            },
+            {
+                "statement": "Answer 4\n",
+                "correct": true,
+                "grade": 0.3333333333333333
+            },
+            {
+                "statement": "Answer 5\n",
+                "correct": true,
+                "grade": 0.3333333333333333
             }
         ],
-        "answers": [
-            [
-                {
-                    "statement": "Answer 1\n",
-                    "correct": true,
-                    "grade": 0.3333333333333333
-                },
-                {
-                    "statement": "Answer 2\n",
-                    "correct": false,
-                    "grade": -0.5
-                },
-                {
-                    "statement": "Answer 3\n",
-                    "correct": false,
-                    "grade": -0.5
-                },
-                {
-                    "statement": "Answer 4\n",
-                    "correct": true,
-                    "grade": 0.3333333333333333
-                },
-                {
-                    "statement": "Answer 5\n",
-                    "correct": true,
-                    "grade": 0.3333333333333333
-                }
-            ]
-        ],
-        "correctAnswersNo": 3
+        "correct_answers_no": 3
     }
 ]

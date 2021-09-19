@@ -3,11 +3,29 @@ import xml.etree.ElementTree as ElementTree
 import xml.dom.minidom as minidom
 from random import randrange
 
-def json_to_mxml(json_question : str, quiz : ElementTree) -> ElementTree:
+def get_meta(map : dict, key : str):
+
+    if(not (key in map["metadata"])):
+        return ""
+
+    if(len(map["metadata"][key]) == 1):
+        return map["metadata"][key][0]
+    else:
+        return map["metadata"][key]
+
+def set_meta(map : dict, key : str, value : any):
+    if(key in map["metadata"]):
+        map["metadata"][key].append(value)
+    else :
+        map["metadata"][key] = []
+        map["metadata"][key].append(value)
+
+
+def json_to_mxml(json_question : str, quiz : ElementTree) -> str:
     """
     Generates the Moodle XML entry for the given question
 
-    :param jsonQuestion: a question stored in JSON
+    :param jsonQuestion: a question stored in JSON format
     :param quiz: the quiz to which the question is added
     :return: a quiz stored in MXML format containing json_question
     """
@@ -24,7 +42,7 @@ def json_to_mxml(json_question : str, quiz : ElementTree) -> ElementTree:
     nameText.text = json_obj['statement'][:-1]
 
     single = ElementTree.SubElement(question, 'single')
-    if json_obj['correctAnswersNo'] > 1:
+    if json_obj['correct_answers_no'] > 1:
         single.text = 'false'
     else:
         single.text = 'true'
@@ -32,29 +50,30 @@ def json_to_mxml(json_question : str, quiz : ElementTree) -> ElementTree:
     # adding the difficulty tag
     tag = ElementTree.SubElement(tags, 'tag')
     tagText = ElementTree.SubElement(tag, 'text')
-    tagText.text = 'difficulty=' + str(json_obj['difficulty'])
+    tagText.text = 'difficulty=' + get_meta(json_obj,"difficulty")
 
     # adding other tags
-    for jsonTag in json_obj['tags']:
+    for jsonTag in json_obj["metadata"]:
         tag = ElementTree.SubElement(tags, 'tag')
         tagText = ElementTree.SubElement(tag, 'text')
-        tagText.text = jsonTag["key"] + "=" + jsonTag['values'][randrange(len(jsonTag['values']))]
+        tagText.text = jsonTag + "=" + get_meta(json_obj, jsonTag)
 
     # adding the answers in the file
     for jsonAnswer in json_obj['answers']:
         answer = ElementTree.SubElement(question, 'answer')
         answerText = ElementTree.SubElement(answer, 'text')
-        answerText.text = jsonAnswer['statement'][2:-1]
+        answerText.text = jsonAnswer['statement'][:-1]
         answer.set('fraction', str(jsonAnswer['grade'] * 100))
         answer.set('format', "html")
     
-    return quiz
+    return question
 
 def mxml_to_json(xml: ElementTree.Element,
                  reviewer: str = "n/a",
                  author: str = "n/a",
-                 year: int = 2021,
-                 topics: str = "n/a") -> str:
+                 date: str = "n/a",
+                 topics: str = "n/a",
+                 difficulty: str = "0") -> str:
     """
     Generates a question in JSON format from MXML object
 
@@ -67,13 +86,8 @@ def mxml_to_json(xml: ElementTree.Element,
     """
     # Template question to be completed with necessary info and returned
     question = {
-        "createdOn": "",
-        "lastUsed": "",
-        "difficulty": 0,
-
         "statement": "",
-        "tags": [
-        ],
+        "metadata": {},
         "answers": [
             # {
             #     "statement": "",
@@ -81,31 +95,16 @@ def mxml_to_json(xml: ElementTree.Element,
             #     "grade": 0.0
             # }
         ],
-        "correctAnswersNo": 0
+        "correct_answers_no": 0
     }
 
     # Add tags
-    date = str(year) + "-01-" + "01"
-    question["createdOn"] = date
-    question["lastUsed"] = date
-    question["tags"].append({
-        "key": "reviewed_by",
-        "values": [
-            reviewer
-        ]
-    })
-    question["tags"].append({
-        "key": "author",
-        "values": [
-            author
-        ]
-    })
-    question["tags"].append({
-        "key": "topics",
-        "values": [
-            topics
-        ]
-    })
+    set_meta(question, "created_on", date)
+    set_meta(question, "last_used", date)
+    set_meta(question, "reviewed_by", reviewer)
+    set_meta(question, "created_by", author)
+    set_meta(question, "topic", topics)
+    set_meta(question, "difficulty", difficulty)
 
     # Iterate through all elements of a single question
     for element in xml.iter('question'):
@@ -119,7 +118,6 @@ def mxml_to_json(xml: ElementTree.Element,
             for answer in element.iter('answer'):
                 # Get the answer statement
                 ans_statement = answer.find("text").text
-
                 # Process correct and wrong answers accordingly
                 if float(answer.attrib['fraction']) > 0:
                     question["answers"].append(
@@ -139,5 +137,7 @@ def mxml_to_json(xml: ElementTree.Element,
                         }
                     )
 
+                
+    
     question["correctAnswersNo"] = correct_ans
     return json.dumps(question, indent=2)

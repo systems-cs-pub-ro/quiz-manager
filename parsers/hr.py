@@ -1,6 +1,13 @@
 import json
 import re
 
+def get_meta(map : dict, key : str):
+    if(not (key in map["metadata"])):
+        return ""
+    if(len(map["metadata"][key]) == 1):
+        return map["metadata"][key][0]
+    else:
+        return map["metadata"][key]
 
 def json_to_hr(json_obj: str) -> str:
     """
@@ -9,15 +16,14 @@ def json_to_hr(json_obj: str) -> str:
     :return: a string representing a question in HR format 
     """
     json_q = json.loads(json_obj)
-
     # Adding Tagline
     hr = ""
-    hr += "createdOn" + ":" + json_q["createdOn"] + ";"
-    hr += "lastUsed" + ":" + json_q["lastUsed"] + ";"
-    hr += "difficulty" + ":" + str(json_q["difficulty"]) + ";"
-    for tag in json_q["tags"]:
-        hr += tag["key"] + ":"
-        for item in tag["values"]:
+    hr += "created_on" + ":" + get_meta(json_q, "created_on") + ";"
+    hr += "difficulty" + ":" + get_meta(json_q, "difficulty") + ";"
+
+    for tag in json_q["metadata"]:
+        hr += tag + ":"
+        for item in json_q["metadata"][tag]:
             hr += item + ","
         hr = hr[:-1] + ";"
     hr += "\n"
@@ -43,13 +49,8 @@ def hr_to_json(hr: str) -> str:
 
     # Template question to be completed with necessary info and returned
     question = {
-        "createdOn": "",
-        "lastUsed": "",
-        "difficulty": 0,
-
         "statement": "",
-        "tags": [
-        ],
+        "metadata": {},
         "answers": [
             # {
             #     "statement": "",
@@ -57,7 +58,7 @@ def hr_to_json(hr: str) -> str:
             #     "grade": 0.0
             # }
         ],
-        "correctAnswersNo": 0
+        "correct_answers_no": 0
     }
 
     # Assign tags
@@ -73,9 +74,7 @@ def hr_to_json(hr: str) -> str:
         if(key in question.keys()):
             question[key] = value
         else:
-            misc_tag = dict()
-            misc_tag[key] = value.split(",")
-            question["tags"].append(misc_tag)
+            question["metadata"][key] = value.split(",")
 
     # Get question statement
     # Find where the answer section starts
@@ -87,7 +86,7 @@ def hr_to_json(hr: str) -> str:
     answer_list = re.split(r"\n", partition[2][answers_index:])
     # Get number of correct answers to compute grade awarded for each
     # correct answer
-    question["correctAnswersNo"] = len(
+    question["correct_answers_no"] = len(
         [ans for ans in answer_list if ans[0] == "+"])
 
     # Preliminary pass through answer list to concatenate multiline answers
@@ -100,7 +99,7 @@ def hr_to_json(hr: str) -> str:
     answer_list = [answer for answer in answer_list if not (
         answer[0] != "+" and answer[0] != "-")]
 
-    grade = 1 / (question["correctAnswersNo"] * 1.0)
+    grade = 1 / (question["correct_answers_no"] * 1.0)
 
     # Add answers to answer list in JSON object
     for answer in answer_list:

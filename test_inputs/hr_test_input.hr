@@ -1,4 +1,4 @@
-createdOn:2019-01-01;lastUsed:2019-01-01;difficulty:3;topics:Topic1,Topic2;author:GC;reviewed_by:GC;
+created_on:2019-01-01;lastUsed:2019-01-01;difficulty:3;topic:Topic1;authors:GC;reviewed_by:GC;
 Test Question Statement?
 + Answer 1
 - Answer 2
@@ -6,7 +6,7 @@ Test Question Statement?
 + Answer 4
 + Answer 5
 
-createdOn:2019-01-02;lastUsed:2019-01-02;difficulty:2;topics:Topic3;author:GC;reviewed_by:GC;
+created_on:2019-01-02;lastUsed:2019-01-02;difficulty:2;topic:Topic2;authors:GC,RD;reviewed_by:GC;
 Test Question
 But with multilines support?
 + Answer 1
