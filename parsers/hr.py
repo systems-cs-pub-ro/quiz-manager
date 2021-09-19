@@ -18,8 +18,6 @@ def json_to_hr(json_obj: str) -> str:
     json_q = json.loads(json_obj)
     # Adding Tagline
     hr = ""
-    hr += "created_on" + ":" + get_meta(json_q, "created_on") + ";"
-    hr += "difficulty" + ":" + get_meta(json_q, "difficulty") + ";"
 
     for tag in json_q["metadata"]:
         hr += tag + ":"
