@@ -1,44 +1,26 @@
-import json
 from xml.dom import minidom
 import hr
 import mxml
 import xml.etree.ElementTree as ElementTree
 
 hr_file = open("./test_inputs/hr_test_input.hr")
+hr_file_content = hr_file.read();
+
+converted_hr_to_json = hr.quiz_hr_to_json(hr_file_content)
+for conv in converted_hr_to_json:
+    print(conv)
+
+converted_json_to_hr = hr.quiz_json_to_hr(converted_hr_to_json)
+for conv in converted_json_to_hr:
+    print(conv)
+
 mxml_file = open("./test_inputs/mxml_test_input.xml")
-json_arr = []
-# Testing HR > JSON
-hr_question = hr_file.read().split("\n\n")
-for hr_elem in hr_question:
-    print("\nHR > JSON TEST", "\n")
-    hr.hr_to_json(hr_elem)
-    json_arr.append(hr.hr_to_json(hr_elem))
-    print(hr.hr_to_json(hr_elem))
+mxml_file_content = mxml_file.read();
 
-# Testing MXML > JSON
-mxml_str = mxml_file.read()
-mxml_question = ElementTree.fromstring(mxml_str)
+converted_json_to_mxml = mxml.quiz_json_to_mxml(converted_hr_to_json)
 
-for mxml_elem in mxml_question:
-    if mxml_elem.tag == "question":
-        json_arr.append(mxml.mxml_to_json(mxml_elem))
+print(converted_json_to_mxml)
 
-print("\nMXML > JSON TEST", "\n")
-for elem in json_arr:
-    print(elem)
-
-# Testing JSON > HR
-res = hr.json_to_hr(json_arr[0])
-print("\nJSON > HR TEST")
-print(res)
-
-# Testing JSON > MXML
-quizMXML = ElementTree.Element('quiz')
-res = mxml.json_to_mxml(json_arr[0], quizMXML)
-
-# Pretty formatting
-roughXML = ElementTree.tostring(quizMXML)
-reparsed = minidom.parseString(roughXML)
-prettyXML = reparsed.toprettyxml()
-print("\nJSON > MXML TEST", "\n")
-print(prettyXML)
+converted_mxml_to_json = mxml.quiz_mxml_to_json(mxml_file_content)
+for conv in converted_mxml_to_json:
+    print(conv)
