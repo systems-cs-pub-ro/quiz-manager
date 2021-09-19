@@ -107,12 +107,6 @@ def mxml_to_json(xml: ElementTree.Element,
         ]
     })
 
-    # Add undesirable answers to filter
-    # TODO discuss moving filter to a separate file and read from that
-    filter = []
-    filter.append("Nu știu / Nu răspund".upper())
-    filter.append("Nu știu/Nu răspund".upper())
-
     # Iterate through all elements of a single question
     for element in xml.iter('question'):
         if element.attrib["type"] == 'multichoice':
@@ -123,11 +117,8 @@ def mxml_to_json(xml: ElementTree.Element,
             # Prepare counter for correct answer number
             correct_ans = 0
             for answer in element.iter('answer'):
-                # Get the answer statement and check if it can be found in the
-                # filter
+                # Get the answer statement
                 ans_statement = answer.find("text").text
-                if (ans_statement.upper() in filter):
-                    continue
 
                 # Process correct and wrong answers accordingly
                 if float(answer.attrib['fraction']) > 0:
