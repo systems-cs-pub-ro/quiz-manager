@@ -1,7 +1,7 @@
 import json
 from xml.dom import minidom
-import parsers.hr as hr
-import parsers.mxml as mxml
+import hr
+import mxml
 import xml.etree.ElementTree as ElementTree
 
 hr_file = open("./test_inputs/hr_test_input.hr")
