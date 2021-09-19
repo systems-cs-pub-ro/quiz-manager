@@ -1,36 +1,58 @@
+"""
+Module that handles parsing MXML files and converting them to JSON
+"""
 import json
-import xml.etree.ElementTree as ElementTree
-import xml.dom.minidom as minidom
-from random import randrange
+from xml.etree import ElementTree
+from xml.dom import minidom
 
 def get_meta(question_dict : dict, key : str):
-
-    if(not (key in question_dict["metadata"])):
+    """
+    Get metadata from question_dict
+    :param question_dict: dictionary that contains question metadata
+    :param key: the key that will be searched in the dictionary
+    :return: the value associated with key from question dict
+    """
+    if not key in question_dict["metadata"]:
         return ""
 
-    if(len(question_dict["metadata"][key]) == 1):
+    if len(question_dict["metadata"][key]) == 1:
         return question_dict["metadata"][key][0]
-    else:
-        return question_dict["metadata"][key]
+    return question_dict["metadata"][key]
 
 def set_meta(question_dict : dict, key : str, value : any):
-    if(key in question_dict["metadata"]):
+    """
+    Set metadata in question_dict
+    :param question_dict: dictionary that contains question metadata
+    :param key: the key that will be searched in the dictionary
+    :param value: the value that will be set in the dictionary
+    """
+    if key in question_dict["metadata"] :
         question_dict["metadata"][key].append(value)
     else :
         question_dict["metadata"][key] = []
         question_dict["metadata"][key].append(value)
 
 def quiz_json_to_mxml(json_arr : list):
-    quizMXML = ElementTree.Element('quiz')
+    """
+    Converts a JSON quiz to MXML quiz
+    :param file_content: a quiz stored in JSON format
+    :return: a quiz stored in MXML format
+    """
+    quiz_mxml = ElementTree.Element('quiz')
     for mxml_elem in list(map(json_to_mxml, json_arr)):
-        quizMXML.append(mxml_elem)
+        quiz_mxml.append(mxml_elem)
 
-    roughXML = ElementTree.tostring(quizMXML)
-    reparsed = minidom.parseString(roughXML)
-    prettyXML = reparsed.toprettyxml()
-    return prettyXML
+    rough_xml = ElementTree.tostring(quiz_mxml)
+    reparsed = minidom.parseString(rough_xml)
+    pretty_xml = reparsed.toprettyxml()
+    return pretty_xml
 
 def quiz_mxml_to_json(file_content : ElementTree.Element):
+    """
+    Converts a MXML quiz to JSON quiz
+    :param file_content: a quiz stored in MXML format
+    :return: a quiz stored in JSON format
+    """
     mxml_element_tree = ElementTree.fromstring(file_content)
     return list(map(mxml_to_json, mxml_element_tree))
 
@@ -45,14 +67,14 @@ def json_to_mxml(json_question : str) -> ElementTree.Element:
     # creating the hierarchy
     json_obj = json.loads(json_question)
     question = ElementTree.SubElement(ElementTree.Element("quiz"), 'question')
-    nameText = ElementTree.SubElement(ElementTree.SubElement(question, 'name'), 'text')
-    questionText = ElementTree.SubElement(question, 'questiontext')
+    name_text = ElementTree.SubElement(ElementTree.SubElement(question, 'name'), 'text')
+    question_text = ElementTree.SubElement(question, 'questiontext')
     tags = ElementTree.SubElement(question, 'tags')
-    questionTextText = ElementTree.SubElement(questionText, 'text')
+    question_text_text = ElementTree.SubElement(question_text, 'text')
     question.set('type', 'multichoice')
-    questionText.set('format', 'html')
-    questionTextText.text = json_obj['statement'][:-1]
-    nameText.text = json_obj['statement'][:-1]
+    question_text.set('format', 'html')
+    question_text_text.text = json_obj['statement'][:-1]
+    name_text.text = json_obj['statement'][:-1]
 
     single = ElementTree.SubElement(question, 'single')
     if json_obj['correct_answers_no'] > 1:
@@ -61,19 +83,19 @@ def json_to_mxml(json_question : str) -> ElementTree.Element:
         single.text = 'true'
 
     # adding other tags
-    for jsonTag in json_obj["metadata"]:
+    for json_tag in json_obj["metadata"]:
         tag = ElementTree.SubElement(tags, 'tag')
-        tagText = ElementTree.SubElement(tag, 'text')
-        tagText.text = jsonTag + "=" + get_meta(json_obj, jsonTag)
+        tag_text = ElementTree.SubElement(tag, 'text')
+        tag_text.text = json_tag + "=" + get_meta(json_obj, json_tag)
 
     # adding the answers in the file
-    for jsonAnswer in json_obj['answers']:
+    for json_answer in json_obj['answers']:
         answer = ElementTree.SubElement(question, 'answer')
-        answerText = ElementTree.SubElement(answer, 'text')
-        answerText.text = jsonAnswer['statement'][:-1]
-        answer.set('fraction', str(jsonAnswer['grade'] * 100))
+        answer_text = ElementTree.SubElement(answer, 'text')
+        answer_text.text = json_answer['statement'][:-1]
+        answer.set('fraction', str(json_answer['grade'] * 100))
         answer.set('format', "html")
-    
+
     return question
 
 def mxml_to_json(xml: ElementTree.Element) -> str:
@@ -105,7 +127,7 @@ def mxml_to_json(xml: ElementTree.Element) -> str:
             statement = element.find("questiontext").find("text").text
             question["statement"] = statement + "\n"
 
-            if(element.find("tags") != None):
+            if element.find("tags") is not None:
                 for tag in element.find("tags").iter("tag"):
                     tag_pair = tag.find("text").text.split("=")
                     set_meta(question, tag_pair[0], tag_pair[1])
@@ -134,7 +156,5 @@ def mxml_to_json(xml: ElementTree.Element) -> str:
                         }
                     )
 
-                
-    
     question["correct_answers_no"] = correct_ans
     return json.dumps(question, indent=2)
