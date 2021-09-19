@@ -60,11 +60,6 @@ def json_to_mxml(json_question : str) -> ElementTree.Element:
     else:
         single.text = 'true'
 
-    # adding the difficulty tag
-    tag = ElementTree.SubElement(tags, 'tag')
-    tagText = ElementTree.SubElement(tag, 'text')
-    tagText.text = 'difficulty=' + get_meta(json_obj,"difficulty")
-
     # adding other tags
     for jsonTag in json_obj["metadata"]:
         tag = ElementTree.SubElement(tags, 'tag')
