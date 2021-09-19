@@ -3,8 +3,8 @@
 """
 
 import click
-import parsers.hr as hr
-import parsers.mxml as mxml
+from parsers import hr
+from parsers import mxml
 
 @click.group()
 def cli():

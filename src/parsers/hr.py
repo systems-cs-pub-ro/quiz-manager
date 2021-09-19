@@ -1,50 +1,69 @@
+"""
+Module that handles parsing HR files and converting them to JSON
+"""
+
 import json
 import re
 
 def get_meta(question_dict : dict, key : str):
-    if(not (key in question_dict["metadata"])):
+    """
+    Get metadata from question_dict
+    :param question_dict: dictionary that contains question metadata
+    :param key: the key that will be searched in the dictionary
+    :return: the value associated with key from question dict
+    """
+    if not key in question_dict["metadata"]:
         return ""
-    if(len(question_dict["metadata"][key]) == 1):
+    if len(question_dict["metadata"][key]) == 1:
         return question_dict["metadata"][key][0]
-    else:
-        return question_dict["metadata"][key]
+    return question_dict["metadata"][key]
 
 def quiz_hr_to_json(file_content : str):
+    """
+    Converts a HR quiz to JSON quiz
+    :param file_content: a quiz stored in HR format
+    :return: a quiz stored in JSON format
+    """
     question_arr = file_content.split("\n\n")
     question_arr_json = list(map(hr_to_json, question_arr))
     return question_arr_json
 
 def quiz_json_to_hr(json_arr : list):
+    """
+    Converts a JSON quiz to HR quiz
+    :param file_content: a quiz stored in JSON format
+    :return: a quiz stored in HR format
+    """
     return list(map(json_to_hr, json_arr))
 
 def json_to_hr(json_obj: str) -> str:
     """
     Generates a question in HR format from JSON string
     :param json_obj: a question stored in JSON format
-    :return: a string representing a question in HR format 
+    :return: a string representing a question in HR format
     """
     json_q = json.loads(json_obj)
     # Adding Tagline
-    hr = ""
+    hr_q = ""
 
     for tag in json_q["metadata"]:
-        hr += tag + ":"
+        hr_q += tag + ":"
         for item in json_q["metadata"][tag]:
-            hr += item + ","
-        hr = hr[:-1] + ";"
-    hr += "\n"
+            hr_q += item + ","
+        hr_q = hr_q[:-1] + ";"
+    hr_q += "\n"
 
     # Adding Statement
-    hr += json_q["statement"]
+    hr_q += json_q["statement"]
 
     # Adding Answers
     for answer in json_q["answers"]:
         stmt = answer["statement"]
         correct = "+" if answer["correct"] else "-"
-        hr += correct + " " + stmt
-    return hr
+        hr_q += correct + " " + stmt
+    return hr_q
 
-def hr_to_json(hr: str) -> str:
+def hr_to_json(hr_q: str) -> str:
     """
     Generates a JSON string for the given HR question
     :param hr: a string representing a question in HR format
@@ -52,7 +71,7 @@ def hr_to_json(hr: str) -> str:
     """
 
     # Copy object to prevent side effects in caller
-    hr_copy = str(hr).rstrip()
+    hr_copy = str(hr_q).rstrip()
 
     # Template question to be completed with necessary info and returned
     question = {
@@ -71,14 +90,14 @@ def hr_to_json(hr: str) -> str:
     # Assign tags
     partition = hr_copy.partition("\n")
     for tag in partition[0].split(";"):
-        splitTags = tag.split(":")
-        if(len(splitTags) < 2):
+        split_tags = tag.split(":")
+        if len(split_tags) < 2:
             break
-        key = splitTags[0]
-        value = splitTags[1]
+        key = split_tags[0]
+        value = split_tags[1]
 
         # If the key has been declared in template
-        if(key in question.keys()):
+        if key in question:
             question[key] = value
         else:
             question["metadata"][key] = value.split(",")
@@ -109,7 +128,7 @@ def hr_to_json(hr: str) -> str:
     grade = 1 / (question["correct_answers_no"] * 1.0)
     # Add answers to answer list in JSON object
     for answer in answer_list:
-        if(answer[0] == "+"):
+        if answer[0] == "+":
             question["answers"].append(
                 {
                     "statement": answer[2:] + "\n",
@@ -117,7 +136,7 @@ def hr_to_json(hr: str) -> str:
                     "grade": grade
                 }
             )
-        elif(answer[0] == "-"):
+        elif answer[0] == "-":
             question["answers"].append(
                 {
                     "statement": answer[2:] + "\n",
