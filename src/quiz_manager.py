@@ -2,10 +2,11 @@
     Quiz Manager is a script that helps with the convertion and generation of quizzes.
 """
 
+import sys
 import click
 from parsers import hr
 from parsers import mxml
-
+from checkers import check_hr
 
 @click.group()
 def cli():
@@ -82,5 +83,24 @@ def convert(input_file_path, output_file_path, input_format, output_format):
         output_file.write(conversion)
 
 
-if __name__ == "__main__":
+@cli.command()
+@click.option('-t', '--type', 'type', type=click.Choice(["common", "specific"]), required=True,
+    help='Type of the check that will be performed.\
+        Choose common for basic identation and syntax check. Choose specific\
+        for checking configurable parameters, according to a config file.')
+@click.option('-i', '--input_file', 'input_file', required=True,
+    help='The file to be checked.')
+@click.option('-cf', '--config_file', 'config_file', required=False,
+    help='Custom location for the configuration file.')
+def check(type, input_file, config_file):
+    """
+        Checks the hr file provided as an input.
+    """
+    with open(input_file) as file:
+        if type == "common":
+            sys.exit(check_hr.check_common(input_file, file))
+        else:
+            sys.exit(check_hr.check_specific(input_file, file, config_file))
+
+if __name__ == '__main__':
     cli()
