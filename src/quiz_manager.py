@@ -2,11 +2,11 @@
     Quiz Manager is a script that helps with the convertion and generation of quizzes.
 """
 
-import click
-import parsers.hr as hr
-import parsers.mxml as mxml
-import checkers.check_hr as check_hr
 import sys
+import click
+from parsers import hr
+from parsers import mxml
+from checkers import check_hr
 
 @click.group()
 def cli():
