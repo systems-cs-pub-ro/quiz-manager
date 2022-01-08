@@ -19,7 +19,7 @@ def print_error(filename: str, line_idx: int, error_msg: str):
     logger.error(filename + ", line " + str(line_idx) + error_msg)
 
 
-def read_config():
+def read_config(config_filename: str):
     """
         Function that reads the configurable options used when
         running the specific check.
@@ -27,7 +27,10 @@ def read_config():
 
     config = configparser.ConfigParser()
     config.sections()
-    config.read("config/checker.conf")
+    if config_filename != None:
+        config.read(config_filename)
+    else:
+        config.read("config/checker.conf")
 
     for topic in config["configuration"]["topics"].split(","):
         topics.append(topic)
@@ -86,7 +89,7 @@ def check_common(filename: str, file: int) -> int:
     return return_value
 
 
-def check_specific(filename: str, file: int) -> int:
+def check_specific(filename: str, file: int, config_filename: str) -> int:
     """
         Specific questions check implementation.
     """
@@ -95,7 +98,7 @@ def check_specific(filename: str, file: int) -> int:
     line_idx = 0
 
     # Get specifications to check from configuration file
-    read_config()
+    read_config(config_filename)
 
     # Get metadata line
     line = file.readline()
