@@ -130,7 +130,6 @@ def exam_parser(input : str):
                     "count": row["Count"],
                     "frequency": row["Frecvență"]
             })
-
         question_num += 1
     print(exam)
 exam_parser("da")
