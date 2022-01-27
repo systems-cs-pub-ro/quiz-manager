@@ -84,9 +84,9 @@ def json_to_mxml(json_question : str) -> ElementTree.Element:
 
     # adding other tags
     for json_tag in json_obj["metadata"]:
-        tag = ElementTree.SubElement(tags, 'tag')
-        tag_text = ElementTree.SubElement(tag, 'text')
-        tag_text.text = json_tag + "=" + get_meta(json_obj, json_tag)
+        tag = ElementTree.SubElement(tags, "tag")
+        tag_text = ElementTree.SubElement(tag, "text")
+        tag_text.text = json_tag + "=" + str(get_meta(json_obj, json_tag))
 
     # adding the answers in the file
     for json_answer in json_obj['answers']:

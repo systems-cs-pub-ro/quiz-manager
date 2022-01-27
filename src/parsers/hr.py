@@ -104,12 +104,13 @@ def hr_to_json(hr_q: str) -> str:
 
     # Get question statement
     # Find where the answer section starts
-    answers_index = min(partition[2].find("+"), partition[2].find("-"))
-    statement = partition[2][:answers_index]
+    answers_index = min(partition[2].find("\n+"), partition[2].find("\n-"))
+    statement = partition[2][: answers_index + 1]
     question["statement"] = statement
 
     # Assign Answers
-    answer_list = re.split(r"\n", partition[2][answers_index:])
+    answer_list = re.split(r"\n", partition[2][answers_index + 1 :])
+
     # Get number of correct answers to compute grade awarded for each
     # correct answer
     question["correct_answers_no"] = len(
