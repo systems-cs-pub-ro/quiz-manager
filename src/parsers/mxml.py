@@ -87,6 +87,9 @@ def json_to_mxml(json_question: str) -> ElementTree.Element:
     else:
         single.text = "true"
 
+    shuffle = ElementTree.SubElement(question, "shuffleanswers")
+    shuffle.text = "true"
+
     # adding other tags
     for json_tag in json_obj["metadata"]:
         tag = ElementTree.SubElement(tags, "tag")
