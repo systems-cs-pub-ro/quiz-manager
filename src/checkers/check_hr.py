@@ -79,7 +79,7 @@ def check_common(filename: str, file: int) -> int:
         line = file.readline()
 
     # Check answers syntax
-    while line != "\n":
+    while line:
         if "+-".find(line[0]) != -1:
             if line[1] != " ":
                 print_error(filename, line_idx, ": Missing space between +/- and text!\n")
@@ -124,7 +124,7 @@ def check_specific(filename: str, file: int, config_filename: str) -> int:
     # Check correct / total answers ratio
     correct_answers = 0
     wrong_answers = 0
-    while line != "\n":
+    while line:
         if line[0] == "+":
             correct_answers += 1
         elif line[0] == "-":
