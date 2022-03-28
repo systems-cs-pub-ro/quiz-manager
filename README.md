@@ -21,6 +21,16 @@ python3 src/quiz_manager.py
 `quiz_manager.py` has multiple subcommands.
 To find out more about each subcommand you can use the `--help` option.
 
+### Converting from one format to another
+
+For the moment, the quiz-manager supports conversions between three file types: `JSON`, `HR` and `MXML`.
+
+To convert a file from `$input_type` to `$output_type` run the following command:
+```sh
+python3 src/quiz_manager.py convert -i $input_file -o $output_file --input-format $input_type --output-format $output_type
+```
+The `--input_format` and `--output_format` arguments can be omitted only if the input / output file name contains a supported extension (eg. `.json`, `.hr` or `.mxml`)
+
 ## Question Format
 
 Quiz Manager works with questions in a custom format, named *human-readable format*, or *hr*.
