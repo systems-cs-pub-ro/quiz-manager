@@ -35,13 +35,23 @@ def set_meta(question_dict: dict, key: str, value: any):
         question_dict["metadata"][key].append(value)
 
 
-def quiz_json_to_mxml(json_arr: list):
+def quiz_json_to_mxml(json_arr: list, category: str = None) -> ElementTree.Element:
     """
     Converts a JSON quiz to MXML quiz
     :param file_content: a quiz stored in JSON format
     :return: a quiz stored in MXML format
     """
     quiz_mxml = ElementTree.Element("quiz")
+
+    # Add optional category to MXML quiz
+    if (category is not None):
+        question = ElementTree.SubElement(ElementTree.Element("quiz"), "question")
+        question.set("type", "category")
+        category_text = ElementTree.SubElement(ElementTree.SubElement(question, "category"), "text")
+        category_text.text = category
+
+        quiz_mxml.append(question)
+
     for mxml_elem in list(map(json_to_mxml, json_arr)):
         quiz_mxml.append(mxml_elem)
 

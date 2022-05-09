@@ -35,7 +35,13 @@ def cli():
     type=click.Choice(["JSON", "HR", "MXML"], case_sensitive=False),
     help="The output format",
 )
-def convert(input_file_path, output_file_path, input_format, output_format):
+@click.option(
+    "-c",
+    "--category",
+    required=False,
+    help="Category specifier for MXML quizzes",
+)
+def convert(input_file_path, output_file_path, input_format, output_format, category=None):
     """
     Converts files to different formats.
     """
@@ -68,12 +74,12 @@ def convert(input_file_path, output_file_path, input_format, output_format):
         if output_format == "HR":
             conversion = hr.quiz_json_to_hr(input_content)
         elif output_format == "MXML":
-            conversion = mxml.quiz_json_to_mxml(input_content)
+            conversion = mxml.quiz_json_to_mxml(input_content, category)
     elif input_format == "HR":
         if output_format == "JSON":
             conversion = hr.quiz_hr_to_json(input_content)
         elif output_format == "MXML":
-            conversion = mxml.quiz_json_to_mxml(hr.quiz_hr_to_json(input_content))
+            conversion = mxml.quiz_json_to_mxml(hr.quiz_hr_to_json(input_content), category)
     elif input_format == "MXML":
         if output_format == "JSON":
             conversion = mxml.quiz_mxml_to_json(input_content)
