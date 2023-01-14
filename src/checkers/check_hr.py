@@ -132,20 +132,15 @@ def check_specific(filename: str, file: int, config_filename: str) -> int:
         line_idx += 1
         line = file.readline()
 
-    answers_number_ok = False
-    answers_ratio_ok = False
-    for total_answers in answers_options.items():
-        if (correct_answers + wrong_answers) == total_answers:
-            answers_number_ok = True
-            if correct_answers == answers_options[total_answers]:
-                answers_ratio_ok = True
-            break
-
-    if not answers_number_ok:
-        print_error(filename, line_idx, ": Wrong answers number at the question above!\n")
-    elif not answers_ratio_ok:
+    supposed_correct_answers = answers_options.get(correct_answers + wrong_answers)
+    if supposed_correct_answers == None:
         print_error(filename, line_idx,
-                ": Wrong correct / wrong answers ratio at the question above!\n")
+                    ": The question does not have the right number of answers! (should be one of { " +
+                    ", ".join([str(x) for x in (answers_options.keys())]) +
+                    "})\n")
+    elif supposed_correct_answers != correct_answers:
+        print_error(filename, line_idx,
+                    ": The question has bad correct / wrong answers ratio!\n")
 
     return return_value
 
